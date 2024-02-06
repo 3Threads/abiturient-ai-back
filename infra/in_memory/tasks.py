@@ -35,7 +35,7 @@ class TasksInMemory:
             1,
             "You are going to listen to five texts. For each of them answer the two questions given. Mark the correct answer A, B or C. You have 20 seconds to look through the task. You will hear the recording twice. ",
             10,
-            "listeningMultiText",
+            "listening",
             ListeningTask(
                 [
                     multiple_choice_question,
@@ -59,7 +59,7 @@ class TasksInMemory:
             8,
             "listening",
             ListeningTask(
-                [[multiple_choice_question] * 8],
+                [multiple_choice_question] * 8,
             ),
         )
         tasks.append(task)
