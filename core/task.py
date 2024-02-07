@@ -80,5 +80,5 @@ class Task:
 
 class TasksRepository(Protocol):
 
-    def get_tasks(self, year: int, variant: int) -> list[Task]:
+    def get_tasks(self, year: int, variant: int, subject: str) -> list[Task]:
         pass

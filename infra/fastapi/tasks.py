@@ -13,8 +13,8 @@ class TaskRequest(BaseModel):
 
 
 @tasks_api.get(
-    "/tasks/{year}/{variant}",
+    "/tasks/{subject}/{year}/{variant}",
     status_code=200,
 )
-def get_tasks(year: int, variant: int, tasks: TasksRepositoryDependable):
-    return tasks.get_tasks(year, variant)
+def get_tasks(year: int, variant: int, subject: str, tasks: TasksRepositoryDependable):
+    print(tasks.get_tasks(year, variant, subject)[0].task_type.questions)

@@ -8,6 +8,8 @@ from infra.in_memory.tasks import TasksInMemory
 from infra.sqlite.database_connect import Database
 from fastapi.middleware.cors import CORSMiddleware
 
+from infra.sqlite.tasks import TasksDatabase
+
 
 def init_app() -> FastAPI:
     app = FastAPI()
@@ -20,11 +22,13 @@ def init_app() -> FastAPI:
     )
     app.include_router(tasks_api)
 
-    if os.getenv("WALLET_REPOSITORY_KIND", "memory") == "sqlite":
-        db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))
-        # db.initial()    # Uncomment this if you want to create initial db
-
-    else:
-        app.state.tasks = TasksInMemory()
+    db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))
+    app.state.tasks = TasksDatabase(db.con, db.cur)
+    # if os.getenv("WALLET_REPOSITORY_KIND", "memory") == "sqlite":
+    #     db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))
+    #     # db.initial()    # Uncomment this if you want to create initial db
+    #
+    # else:
+    #     app.state.tasks = TasksInMemory()
 
     return app
