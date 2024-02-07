@@ -1,72 +1,63 @@
+from abc import ABC
 from dataclasses import dataclass
 from typing import Protocol
 
 from core.question import QuestionType
 
 
-class TaskType(Protocol):
-    def get_questions(self) -> list[QuestionType]:
-        pass
+@dataclass
+class TaskType(ABC):
+    questions: list[QuestionType]
 
-    def get_question(self) -> QuestionType:
-        pass
+    def get_questions(self) -> list[QuestionType]:
+        return self.questions
+
+    def get_result_points(self, answers: list[str]) -> tuple[int, dict[int, str]]:
+        points = 0
+        result = {}
+        for i, question in enumerate(self.questions):
+            point, correct_answer = question.check_answer(answers[i])
+            if point == 1:
+                points += 1
+            else:
+                result[i] = correct_answer
+        return points, result
 
 
 @dataclass
 class ListeningTask(TaskType):
-    questions: list[QuestionType]
-
-    def get_questions(self):
-        return self.questions
+    pass
 
 
 @dataclass
 class TitlingTask(TaskType):
-    question: QuestionType
-
-    def get_question(self):
-        return self.question
+    titles: list[str]
 
 
 @dataclass
 class ReadAndWriteTask(TaskType):
     text: str
-    questions: list[QuestionType]
-
-    def get_questions(self):
-        return self.questions
 
 
 @dataclass
 class FillTextTask(TaskType):
-    question: QuestionType
-
-    def get_questions(self):
-        return self.question
+    text: str
+    options: list[str]
 
 
 @dataclass
 class FillWithArticlesTask(TaskType):
-    question: QuestionType
-
-    def get_questions(self):
-        return self.question
+    text: str
 
 
 @dataclass
 class EmailTask(TaskType):
-    question: QuestionType
-
-    def get_questions(self):
-        return self.question
+    img_link: str
 
 
 @dataclass
 class EssayTask(TaskType):
-    question: QuestionType
-
-    def get_questions(self):
-        return self.question
+    title: str
 
 
 @dataclass
@@ -80,5 +71,8 @@ class Task:
 
 class TasksRepository(Protocol):
 
-    def get_tasks(self, year: int, variant: int, subject: str) -> list[Task]:
+    def get_tasks(self, subject: str, year: int, variant: int) -> list[Task]:
+        pass
+
+    def get_result_points(self, request: dict) -> list[tuple[int, dict[int, str]]]:
         pass
