@@ -7,11 +7,11 @@ tasks_api = APIRouter(tags=["Tasks"])
 
 
 @tasks_api.get(
-    "/tasks/{year}/{variant}",
+    "/tasks/{subject}/{year}/{variant}",
     status_code=200,
 )
-def get_tasks(year: int, variant: int, tasks: TasksRepositoryDependable):
-    return tasks.get_tasks(year, variant)
+def get_tasks(subject: str, year: int, variant: int, tasks: TasksRepositoryDependable):
+    return tasks.get_tasks(subject, year, variant)
 
 
 @tasks_api.post("/tasks", status_code=201)
@@ -29,7 +29,6 @@ def process_test_data(
     task7: list[str] = Form(...),
     task8: list[str] = Form(...),
 ):
-    # Here you can process the form data as needed
     answers = [task1, task2, task3, task4, task5, task6, task7, task8]
 
     answers_dict = {}

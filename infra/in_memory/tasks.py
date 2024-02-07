@@ -23,7 +23,7 @@ from core.task import (
 @dataclass
 class TasksInMemory:
 
-    def get_tasks(self, year: int, variant: int) -> list[Task]:
+    def get_tasks(self, subject: str, year: int, variant: int) -> list[Task]:
         tasks = []
         multiple_choice_question = MultipleChoiceQuestion(
             "What does Sandro want to be?",
@@ -138,14 +138,15 @@ class TasksInMemory:
 
         return tasks
 
-    def get_result_points(self, request: dict) -> list[(int, int)]:
+    def get_result_points(self, request: dict) -> list[tuple[int, dict[int, str]]]:
         subject = request["subject"]
         year = request["year"]
         variant = request["variant"]
-        tasks = self.get_tasks(year, variant)
+        tasks = self.get_tasks(subject, year, variant)
         answers = request["answers"]
 
+        results = []
         for task in tasks:
-            task.task.get_result_points(answers[task.task_number])
+            results.append(task.task.get_result_points(answers[task.task_number-1]))
 
-        return [(1, 10), (2, 8), (3, 8), (4, 8), (5, 12), (6, 12), (7, 6), (8, 16)]
+        return results

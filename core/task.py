@@ -1,8 +1,8 @@
+from abc import ABC
 from dataclasses import dataclass
 from typing import Protocol
 
 from core.question import QuestionType
-from abc import ABC, abstractmethod
 
 
 @dataclass
@@ -15,8 +15,8 @@ class TaskType(ABC):
     def get_result_points(self, answers: list[str]) -> tuple[int, dict[int, str]]:
         points = 0
         result = {}
-        for i, answer in enumerate(answers):
-            point, correct_answer = self.questions[i].check_answer(answer)
+        for i, question in enumerate(self.questions):
+            point, correct_answer = question.check_answer(answers[i])
             if point == 1:
                 points += 1
             else:
@@ -71,8 +71,8 @@ class Task:
 
 class TasksRepository(Protocol):
 
-    def get_tasks(self, year: int, variant: int) -> list[Task]:
+    def get_tasks(self, subject: str, year: int, variant: int) -> list[Task]:
         pass
 
-    def get_result_points(self, request: dict) -> list[(int, int)]:
+    def get_result_points(self, request: dict) -> list[tuple[int, dict[int, str]]]:
         pass
