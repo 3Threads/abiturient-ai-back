@@ -22,13 +22,12 @@ def init_app() -> FastAPI:
     )
     app.include_router(tasks_api)
 
-    db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))
-    app.state.tasks = TasksDatabase(db.con, db.cur)
-    # if os.getenv("WALLET_REPOSITORY_KIND", "memory") == "sqlite":
-    #     db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))
-    #     # db.initial()    # Uncomment this if you want to create initial db
-    #
-    # else:
-    #     app.state.tasks = TasksInMemory()
+    if os.getenv("WALLET_REPOSITORY_KIND", "memory") == "sqlite":
+        db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))
+        db.initial()    # Uncomment this if you want to create initial db
+        app.state.tasks = TasksDatabase(db.con, db.cur)
+
+    else:
+        app.state.tasks = TasksInMemory()
 
     return app
