@@ -11,6 +11,7 @@ tasks_api = APIRouter(tags=["Tasks"])
     status_code=200,
 )
 def get_tasks(subject: str, year: int, variant: int, tasks: TasksRepositoryDependable):
+    print(subject, year, variant)
     return tasks.get_tasks(subject, year, variant)
 
 

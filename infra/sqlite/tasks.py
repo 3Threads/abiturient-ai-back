@@ -18,23 +18,25 @@ class TasksDatabase:
     con: Connection
     cur: Cursor
 
-    def get_tasks(self, year: int, variant: int, subject: str) -> list[Task]:
+    def get_tasks(self, subject: str, year: int, variant: int) -> list[Task]:
+        print("aqaaa")
         tasks_info = self.cur.execute(
-            "SELECT * FROM TASKS " "WHERE SUBJECT = ? AND VARIANT = ? AND YEAR = ?",
+            "SELECT * FROM TASKS WHERE SUBJECT = ? AND VARIANT = ? AND YEAR = ?",
             [subject, variant, year],
         ).fetchall()
+        print(tasks_info)
         tasks = []
         for (
-            id,
-            task_num,
-            task_title,
-            task_text,
-            point,
-            task_type,
-            year,
-            variant,
-            subject,
-            questions_id,
+                id,
+                task_num,
+                task_title,
+                task_text,
+                point,
+                task_type,
+                year,
+                variant,
+                subject,
+                questions_id,
         ) in tasks_info:
             st = ""
             list_of_questions_id = str(questions_id).split("#")

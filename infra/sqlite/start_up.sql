@@ -35,7 +35,7 @@ answer A, B or C. You have 20 seconds to look through the task. You will hear th
                                                                                                   'ListeningTask',
                                                                                                   2021,
                                                                                                     1,
-                                                                                                   'English',
+                                                                                                   'english',
                                                                                                 '1#2#3');
 INSERT INTO QUESTIONS (QUESTION_TYPE, QUESTION_IMG_LING, QUESTION_TEXT, QUESTION_OPTIONS, QUESTION_ANSWERS) VALUES (
                                                                                                                     'MultipleChoiceQuestion',
