@@ -3,7 +3,8 @@ from typing import Protocol
 
 
 class QuestionType(Protocol):
-    pass
+    def check_answer(self, user_answer: str) -> tuple[int, str]:
+        pass
 
 
 @dataclass
@@ -12,32 +13,52 @@ class MultipleChoiceQuestion(QuestionType):
     options: list[str]
     correct_option: str
 
+    def check_answer(self, user_answer: str) -> tuple[int, str]:
+        if user_answer == self.correct_option:
+            return 1, self.correct_option
+        return 0, self.correct_option
+
 
 @dataclass
 class TitlingQuestion(QuestionType):
-    titles: list[str]
-    paragraphs: list[str]
-    correct_titles: dict[int, list[str]]
+    paragraph: str
+    correct_titles: list[str]
+
+    def check_answer(self, user_answer: str) -> tuple[int, str]:
+        user_answers = user_answer.split(",")
+        if user_answers == self.correct_titles:
+            return 1, ",".join(self.correct_titles)
+        return 0, ",".join(self.correct_titles)
 
 
 @dataclass
 class FillTextQuestion(QuestionType):
-    text: str
-    options: list[str]
-    correct_answers: list[str]
+    correct_answer: str
+
+    def check_answer(self, user_answer: str) -> tuple[int, str]:
+        if user_answer == self.correct_answer:
+            return 1, self.correct_answer
+        return 0, self.correct_answer
 
 
 @dataclass
 class FillWithArticlesQuestion(QuestionType):
-    text: str
-    correct_answers: list[list[str]]
+    correct_answers: list[str]
+
+    def check_answer(self, user_answer: str) -> tuple[int, str]:
+        user_answers = user_answer.split(",")
+        if user_answers == self.correct_answers:
+            return 1, ",".join(self.correct_answers)
+        return 0, ",".join(self.correct_answers)
 
 
 @dataclass
 class EmailQuestion(QuestionType):
-    img_link: str
+    def check_answer(self, user_answer: str) -> tuple[int, str]:
+        return 0, "Not implemented yet ;)"
 
 
 @dataclass
 class EssayQuestion(QuestionType):
-    title: str
+    def check_answer(self, user_answer: str) -> tuple[int, str]:
+        return 0, "Not implemented yet ;)"
