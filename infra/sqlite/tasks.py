@@ -19,12 +19,10 @@ class TasksDatabase:
     cur: Cursor
 
     def get_tasks(self, subject: str, year: int, variant: int) -> list[Task]:
-        print("aqaaa")
         tasks_info = self.cur.execute(
             "SELECT * FROM TASKS WHERE SUBJECT = ? AND VARIANT = ? AND YEAR = ?",
             [subject, variant, year],
         ).fetchall()
-        print(tasks_info)
         tasks = []
         for (
                 id,
@@ -44,7 +42,6 @@ class TasksDatabase:
                 st += id
                 st += ","
             st = st[: (len(st) - 1)]
-            print(st)
             questions_info = self.cur.execute(
                 "SELECT * FROM QUESTIONS WHERE QUESTION_ID IN (" + st + ")"
             ).fetchall()
