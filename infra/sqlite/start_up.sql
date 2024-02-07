@@ -1,30 +1,67 @@
-DROP TABLE IF EXISTS USERS;
-DROP TABLE IF EXISTS WALLETS;
-DROP TABLE IF EXISTS TRANSACTIONS;
+DROP TABLE IF EXISTS TASKS;
+DROP TABLE IF EXISTS QUESTIONS;
 
-CREATE TABLE USERS
+
+CREATE TABLE TASKS
 (
-    ID      UUID PRIMARY KEY,
-    EMAIL   TEXT UNIQUE NOT NULL,
-    API_KEY TEXT UNIQUE NOT NULL
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    TASK_NUM INTEGER NOT NULL,
+    TASK_TITLE TEXT NOT NULL,
+    TASK_TEXT TEXT,
+    POINT INTEGER NOT NULL,
+    TASK_TYPE TEXT NOT NULL,
+    YEAR INTEGER TEXT NOT NULL,
+    VARIANTI INTEGER NOT NULL,
+    SUBJECT TEXT NOT NULL,
+    QUESTIONS_ID TEXT NOT NULL
 );
 
-CREATE TABLE WALLETS
+CREATE TABLE QUESTIONS
 (
-    ADDRESS UUID PRIMARY KEY  NOT NULL,
-    USER_ID UUID              NOT NULL,
-    BALANCE FLOAT DEFAULT 1.0 NOT NULL,
-    FOREIGN KEY (USER_ID) REFERENCES USERS (ID) ON DELETE CASCADE
+    QUESTION_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    QUESTION_TYPE TEXT NOT NULL,
+    QUESTION_IMG_LING TEXT,
+    QUESTION_TEXT TEXT,
+    QUESTION_OPTIONS TEXT,
+    QUESTION_ANSWERS TEXT
 );
 
-CREATE TABLE TRANSACTIONS
-(
-    ID           INTEGER PRIMARY KEY AUTOINCREMENT,
-    FROM_ADDRESS TEXT NOT NULL,
-    TO_ADDRESS   TEXT NOT NULL,
-    AMOUNT       FLOAT       NOT NULL,
-    FEE          FLOAT       NOT NULL,
-    FOREIGN KEY (FROM_ADDRESS) REFERENCES WALLETS (ADDRESS) ON DELETE CASCADE,
-    FOREIGN KEY (TO_ADDRESS) REFERENCES WALLETS (ADDRESS) ON DELETE CASCADE
-);
-
+INSERT INTO TASKS (TASK_NUM, TASK_TITLE, TASK_TEXT, POINT, TASK_TYPE, YEAR, VARIANTI, SUBJECT, QUESTIONS_ID) VALUES (
+                                                                                                  1,
+                                                                                                  'You are going to listen to five texts. For each of them answer the two questions given. Mark the correct
+answer A, B or C. You have 20 seconds to look through the task. You will hear the recording twice.',
+                                                                                                  NULL,
+                                                                                                  10,
+                                                                                                  'ListeningTask',
+                                                                                                  2021,
+                                                                                                    1,
+                                                                                                   'English',
+                                                                                                '1#2#3');
+INSERT INTO QUESTIONS (QUESTION_TYPE, QUESTION_IMG_LING, QUESTION_TEXT, QUESTION_OPTIONS, QUESTION_ANSWERS) VALUES (
+                                                                                                                    'MultipleChoiceQuestion',
+                                                                                                                    NULL,
+                                                                                                                    'What does Sandro want to be?',
+                                                                                                                    'A doctor.#An actor.#An economist.',
+                                                                                                                    'A doctor.'
+                                                                                                                   );
+INSERT INTO QUESTIONS (QUESTION_TYPE, QUESTION_IMG_LING, QUESTION_TEXT, QUESTION_OPTIONS, QUESTION_ANSWERS) VALUES (
+                                                                                                                    'MultipleChoiceQuestion',
+                                                                                                                    NULL,
+                                                                                                                    'Where does Sandro work? ',
+                                                                                                                    'In a bank.#In a theatre.#In a bookshop.',
+                                                                                                                    'In a bookshop.'
+                                                                                                                   );
+INSERT INTO QUESTIONS (QUESTION_TYPE, QUESTION_IMG_LING, QUESTION_TEXT, QUESTION_OPTIONS, QUESTION_ANSWERS) VALUES (
+                                                                                                                    'MultipleChoiceQuestion',
+                                                                                                                    NULL,
+                                                                                                                    'Where does Sandro work? ',
+                                                                                                                    'In a bank.#In a theatre.#In a bookshop.',
+                                                                                                                    'In a bookshop.'
+                                                                                                                   );
+INSERT INTO QUESTIONS (QUESTION_TYPE, QUESTION_IMG_LING, QUESTION_TEXT, QUESTION_OPTIONS, QUESTION_ANSWERS) VALUES (
+                                                                                                                    'MultipleChoiceQuestion',
+                                                                                                                    NULL,
+                                                                                                                    'Agatha Christie is called the ‘Queen of Crime’ because sh',
+                                                                                                                    'used to work as a detective.#is the author of popular books on crime.#is the most translated author of the books on crime',
+                                                                                                                    'is the author of popular books on crime.'
+                                                                                                                   );
