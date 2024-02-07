@@ -1,9 +1,16 @@
 from dataclasses import dataclass
 from sqlite3 import Connection, Cursor
 
-from core.question import QuestionType, MultipleChoiceQuestion, TitlingQuestion, FillTextQuestion, \
-    FillWithArticlesQuestion, EmailQuestion, EssayQuestion
-from core.task import Task, TitlingTask, ListeningTask, EmailTask, ReadAndWriteTask, EssayTask, FillTextTask
+from core.question import (
+    QuestionType,
+    MultipleChoiceQuestion,
+    TitlingQuestion,
+    FillTextQuestion,
+    FillWithArticlesQuestion,
+    EmailQuestion,
+    EssayQuestion,
+)
+from core.task import Task, TitlingTask, ListeningTask, ReadAndWriteTask, FillTextTask
 
 
 @dataclass
@@ -11,20 +18,34 @@ class TasksDatabase:
     con: Connection
     cur: Cursor
 
-    def get_tasks(self, year: int, varianti: int, subject: str) -> list[Task]:
-        tasks_info = self.cur.execute("SELECT * FROM TASKS "
-                                      "WHERE SUBJECT = ? AND VARIANTI = ? AND YEAR = ?",
-                                      [subject, varianti, year]).fetchall()
+    def get_tasks(self, year: int, variant: int, subject: str) -> list[Task]:
+        tasks_info = self.cur.execute(
+            "SELECT * FROM TASKS " "WHERE SUBJECT = ? AND VARIANT = ? AND YEAR = ?",
+            [subject, variant, year],
+        ).fetchall()
         tasks = []
-        for id, task_num, task_title, task_text, point, task_type, year, varianti, subject, questions_id in tasks_info:
+        for (
+            id,
+            task_num,
+            task_title,
+            task_text,
+            point,
+            task_type,
+            year,
+            variant,
+            subject,
+            questions_id,
+        ) in tasks_info:
             st = ""
-            list_of_questions_id = str(questions_id).split('#')
+            list_of_questions_id = str(questions_id).split("#")
             for id in list_of_questions_id:
                 st += id
-                st += ','
-            st = st[:(len(st) - 1)]
+                st += ","
+            st = st[: (len(st) - 1)]
             print(st)
-            questions_info = self.cur.execute("SELECT * FROM QUESTIONS WHERE QUESTION_ID IN (" + st + ")").fetchall()
+            questions_info = self.cur.execute(
+                "SELECT * FROM QUESTIONS WHERE QUESTION_ID IN (" + st + ")"
+            ).fetchall()
 
             print(questions_info)
             questions = []
@@ -50,26 +71,33 @@ class TasksDatabase:
         return tasks
 
     def get_question(self, question_info) -> QuestionType:
-        question_id, question_type, question_img_link, question_text, question_options, questions_answers = question_info
+        (
+            question_id,
+            question_type,
+            question_img_link,
+            question_text,
+            question_options,
+            questions_answers,
+        ) = question_info
         match question_type:
             case "MultipleChoiceQuestion":
                 options = question_options.split("#")
                 return MultipleChoiceQuestion(question_text, options, questions_answers)
             case "TitlingQuestion":
-                paragraphs = question_text.split('#')
-                titles = question_options.split('#')
-                answers = questions_answers.split('###')
-                correct_answers: dict[int: list[str]] = {}
+                paragraphs = question_text.split("#")
+                titles = question_options.split("#")
+                answers = questions_answers.split("###")
+                correct_answers: dict[int : list[str]] = {}
                 for an in answers:
                     paragraph_index, answers = an.splite("##")
-                    correct_answers[int(paragraph_index)] = list(answers.splite('#'))
+                    correct_answers[int(paragraph_index)] = list(answers.splite("#"))
                 return TitlingQuestion(titles, paragraphs, correct_answers)
             case "FillTextQuestion":
                 options = question_options.split("#")
-                answers = questions_answers.split('#')
+                answers = questions_answers.split("#")
                 return FillTextQuestion(question_text, options, answers)
             case "FillWithArticlesQuestion":
-                answers = questions_answers.split('##')
+                answers = questions_answers.split("##")
                 correct_answers = []
                 for answ in answers:
                     correct_answers.append(answers(answ.split("#")))

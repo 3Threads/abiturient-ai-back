@@ -11,7 +11,7 @@ CREATE TABLE TASKS
     POINT INTEGER NOT NULL,
     TASK_TYPE TEXT NOT NULL,
     YEAR INTEGER TEXT NOT NULL,
-    VARIANTI INTEGER NOT NULL,
+    VARIANT INTEGER NOT NULL,
     SUBJECT TEXT NOT NULL,
     QUESTIONS_ID TEXT NOT NULL
 );
@@ -26,7 +26,7 @@ CREATE TABLE QUESTIONS
     QUESTION_ANSWERS TEXT
 );
 
-INSERT INTO TASKS (TASK_NUM, TASK_TITLE, TASK_TEXT, POINT, TASK_TYPE, YEAR, VARIANTI, SUBJECT, QUESTIONS_ID) VALUES (
+INSERT INTO TASKS (TASK_NUM, TASK_TITLE, TASK_TEXT, POINT, TASK_TYPE, YEAR, VARIANT, SUBJECT, QUESTIONS_ID) VALUES (
                                                                                                   1,
                                                                                                   'You are going to listen to five texts. For each of them answer the two questions given. Mark the correct
 answer A, B or C. You have 20 seconds to look through the task. You will hear the recording twice.',
