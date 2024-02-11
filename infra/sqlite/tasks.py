@@ -85,3 +85,10 @@ class TasksDatabase:
         sql_script = "SELECT * FROM " + question_type + " WHERE TASK_ID = " + str(task_id)
         questions_info = self.cur.execute(sql_script).fetchall()
         return questions_info
+
+    def insert_task(self, task_num: int, task_title: str, task_text: str, task_options: str, point: int, task_type: str,
+                    year: int, variant: int, subject: str):
+        self.cur.execute(
+            "INSERT INTO TASKS(TASK_NUM, TASK_TITLE, TASK_TEXT, TASK_OPTIONS, POINT, TASK_TYPE, YEAR, VARIANT, SUBJECT) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (task_num, task_title, task_text, task_options, point, task_type, year, variant, subject))
+        self.con.commit()

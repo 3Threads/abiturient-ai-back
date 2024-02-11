@@ -1,6 +1,11 @@
 DROP TABLE IF EXISTS TASKS;
 DROP TABLE IF EXISTS QUESTIONS;
 DROP TABLE IF EXISTS USERS;
+DROP TABLE IF EXISTS SUBSCRIBE;
+DROP TABLE IF EXISTS MultipleChoiceQuestion;
+DROP TABLE IF EXISTS FillWithArticlesQuestion;
+DROP TABLE IF EXISTS TitlingQuestion;
+DROP TABLE IF EXISTS FillTextQuestion;
 
 CREATE TABLE SUBSCRIBE
 (
@@ -74,7 +79,7 @@ CREATE TABLE FillTextQuestion
     CORRECT_ANSWER TEXT,
     FOREIGN KEY (TASK_ID) REFERENCES TASKS(ID) ON DELETE CASCADE
 );
-
+--
 -- INSERT INTO TASKS (TASK_NUM, TASK_TITLE, TASK_TEXT, TASK_OPTIONS, POINT, TASK_TYPE, YEAR, VARIANT, SUBJECT)
 -- VALUES (1,
 --         'You are going to listen to five texts. For each of them answer the two questions given. Mark the correct
@@ -86,10 +91,12 @@ CREATE TABLE FillTextQuestion
 --         2021,
 --         1,
 --         'english');
+--
 -- INSERT INTO MultipleChoiceQuestion (TASK_ID , QUESTION_TEXT, QUESTION_OPTIONS, QUESTION_ANSWER)
 -- VALUES (1, 'What does Sandro want to be?',
 --         'A doctor.#An actor.#An economist.',
 --         'A doctor.');
+--
 -- INSERT INTO MultipleChoiceQuestion (TASK_ID, QUESTION_TEXT, QUESTION_OPTIONS, QUESTION_ANSWER)
 -- VALUES (1, 'Where does Sandro work? ',
 --         'In a bank.#In a theatre.#In a bookshop.',
@@ -116,30 +123,30 @@ CREATE TABLE FillTextQuestion
 --         2021,
 --         1,
 --         'english');
--- INSERT INTO TitlingQuestion (PARAGRAPH, CORRECT_ANSWERS)
--- VALUES ('A. Harrods department store is one of the most famous shops in London with millions of people visiting each year. In the
+-- INSERT INTO TitlingQuestion (TASK_ID, PARAGRAPH, CORRECT_ANSWERS)
+-- VALUES (2, 'A. Harrods department store is one of the most famous shops in London with millions of people visiting each year. In the
 -- beginning, though, Harrods was just a small shop in a single room in Stepney, East London. The shop sold only tea and groceries.
 -- A young tea merchant, Charles Henry Harrod opened it in 1824 when he was only 25 years old. Besides himself, Charles Henry
 -- Harrod employed two assistants and a messenger boy*. In 1849 the store moved to the Knightsbridge area of London and
 -- expanded. Just two years later, the Great Exhibition of 1851 brought many visitors to Knightsbridge. This was a great change
 -- because, as a result, Harrods attracted more customers and enjoyed great success.',
 --         '1#3#4');
--- INSERT INTO TitlingQuestion (PARAGRAPH, CORRECT_ANSWERS)
--- VALUES ('B. Harrods steadily grew, and by 1873 the name ‘Harrod’s Store’ appeared at the front of the shop. Over several years the shop
+-- INSERT INTO TitlingQuestion (TASK_ID, PARAGRAPH, CORRECT_ANSWERS)
+-- VALUES (2, 'B. Harrods steadily grew, and by 1873 the name ‘Harrod’s Store’ appeared at the front of the shop. Over several years the shop
 -- got bigger and started selling fruit, vegetables and furniture. By 1883 Harrods had grown to six departments across five floors,
 -- with over 200 assistants. It started to offer its customers everything from medicines and perfumes to clothing and food. The
 -- department store became well known for its high-quality products and excellent personalised service. This way it managed to
 -- reach out to wealthy customers who were willing to spend more money for better quality. ',
 --         '2#5');
--- INSERT INTO TitlingQuestion (PARAGRAPH, CORRECT_ANSWERS)
--- VALUES ('C. Then, on the night of December 7, 1883, the store unexpectedly caught fire. The entire building burnt down to the ground. But
+-- INSERT INTO TitlingQuestion (TASK_ID, PARAGRAPH, CORRECT_ANSWERS)
+-- VALUES (2, 'C. Then, on the night of December 7, 1883, the store unexpectedly caught fire. The entire building burnt down to the ground. But
 -- instead of closing down, the store moved across the street and an architect was hired to build a newer, grander building. Despite
 -- the tragedy, all Christmas orders were fulfilled and the store’s reputation was not only saved but also improved. The store reopened
 -- the following year. In 1898, Harrods installed England’s first ‘moving stairs’ that we now call an escalator. The first escalator was
 -- considered a frightening experience, so nervous customers were offered brandy - an alcoholic drink - at the top floor to calm them
 -- down.',
 --         '6');
---
+-- --
 -- INSERT INTO TASKS (TASK_NUM, TASK_TITLE, TASK_TEXT, TASK_OPTIONS, POINT, TASK_TYPE, YEAR, VARIANT, SUBJECT) VALUES (
 --                                                                                                                                   3,
 --                                                                                                                                     'Read the text and the questions which follow. For each question mark the correct answer (A, B, C or D)',

@@ -7,7 +7,6 @@ from uuid import UUID, uuid4
 class User:
     username: str
     email: str
-    password: str
     subscribe_type: str
     subscribe_start_date: str
     subscribe_end_date: str
