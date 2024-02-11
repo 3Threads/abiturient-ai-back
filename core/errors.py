@@ -25,20 +25,19 @@ class WalletDoesNotExistError(Exception):
             content={
                 "error": {
                     "message": f"Wallet with address<{self.wallet_address}>"
-                    f" does not exist."
+                               f" does not exist."
                 }
             },
         )
 
 
 @dataclass
-class InvalidApiKeyError(Exception):
-    api_key: str
+class UserNotFoundError(Exception):
 
     def get_error_json_response(self, code: int = 401) -> JSONResponse:
         return JSONResponse(
             status_code=code,
-            content={"error": {"message": f"Invalid API key: {self.api_key}"}},
+            content={"error": {"message": f"User not found"}},
         )
 
 
@@ -52,7 +51,7 @@ class WalletsLimitError(Exception):
             content={
                 "error": {
                     "message": f"User<{self.api_key}> "
-                    f"reached wallets limit({WALLETS_LIMIT})."
+                               f"reached wallets limit({WALLETS_LIMIT})."
                 }
             },
         )
@@ -83,7 +82,7 @@ class NotEnoughBitcoinError(Exception):
             content={
                 "error": {
                     "message": f"Not enough bitcoin on the wallet with address"
-                    f"<{self.wallet_address}>."
+                               f"<{self.wallet_address}>."
                 }
             },
         )
@@ -108,4 +107,14 @@ class EmailAlreadyExistError(Exception):
         return JSONResponse(
             status_code=code,
             content={"error": {"message": f"The email: {self.email} already exists."}},
+        )
+
+
+@dataclass
+class UserAlreadyExistError(Exception):
+
+    def get_error_json_response(self, code: int = 409) -> JSONResponse:
+        return JSONResponse(
+            status_code=code,
+            content={"error": {"message": f"User with this username or email already exists."}},
         )
