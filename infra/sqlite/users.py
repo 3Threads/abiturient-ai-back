@@ -29,6 +29,7 @@ class UsersDatabase:
         user_db = self.cur.execute("SELECT * FROM USERS WHERE EMAIL = ? AND PASSWORD = ?",
                                    [email, hash_password(password)]).fetchone()
         if user_db is not None:
-            user = User(**user_db[0])
+            user = User(user_db[1], user_db[2], user_db[3], user_db[4], user_db[5], user_db[6])
+
             return user
         return None
