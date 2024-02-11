@@ -11,7 +11,6 @@ class User:
     subscribe_type: str
     subscribe_start_date: str
     subscribe_end_date: str
-    id: UUID = field(default_factory=uuid4)
 
 
 class UsersRepository(Protocol):

@@ -1,7 +1,6 @@
-from dataclasses import field
 from uuid import UUID
 
-from core.errors import UserAlreadyExistError, UserNotFoundError
+from core.errors import UserAlreadyExistError, UserNotFoundError, IncorrectPasswordError
 from core.users import User
 import hashlib
 
@@ -17,17 +16,21 @@ def hash_password(password):
 
 
 class UsersInMemory:
-    users: dict[UUID, User] = {}
+    users: dict[str, User] = {}
 
     def create(self, username: str, email: str, password: str) -> None:
-        for user in self.users.values():
-            if user.email == email or user.username == username:
-                raise UserAlreadyExistError
-        new_user = User(username, email, hash_password(password), "", "", "")
-        self.users[new_user.id] = new_user
+        if not self.users.keys().__contains__(email):
+            new_user = User(username, email, hash_password(password), "", "", "")
+            self.users[email] = new_user
+        else:
+            raise UserAlreadyExistError
 
-    def try_authorization(self, email: str, password: str) -> UUID:
-        for user in self.users.values():
-            if user.email == email and hash_password(password) == password:
-                return user.id
-        raise UserNotFoundError
+    def try_authorization(self, email: str, password: str) -> User:
+        try:
+            user = self.users[email]
+            if hash_password(password) == user.password:
+                return user
+            else:
+                raise IncorrectPasswordError
+        except:
+            raise UserNotFoundError

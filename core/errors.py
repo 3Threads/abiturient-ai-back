@@ -42,6 +42,16 @@ class UserNotFoundError(Exception):
 
 
 @dataclass
+class IncorrectPasswordError(Exception):
+
+    def get_error_json_response(self, code: int = 401) -> JSONResponse:
+        return JSONResponse(
+            status_code=code,
+            content={"error": {"message": f"Password is incorrect"}},
+        )
+
+
+@dataclass
 class WalletsLimitError(Exception):
     api_key: str
 
