@@ -1,13 +1,11 @@
-from dataclasses import field, dataclass
+from dataclasses import dataclass
 from typing import Protocol
-from uuid import UUID, uuid4
 
 
 @dataclass
 class User:
     username: str
     email: str
-    password: str
     subscribe_type: str
     subscribe_start_date: str
     subscribe_end_date: str

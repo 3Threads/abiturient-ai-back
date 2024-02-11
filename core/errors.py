@@ -34,7 +34,7 @@ class WalletDoesNotExistError(Exception):
 @dataclass
 class UserNotFoundError(Exception):
 
-    def get_error_json_response(self, code: int = 401) -> JSONResponse:
+    def get_error_json_response(self, code: int = 404) -> JSONResponse:
         return JSONResponse(
             status_code=code,
             content={"error": {"message": f"User not found"}},
