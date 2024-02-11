@@ -1,6 +1,5 @@
-from dataclasses import field, dataclass
+from dataclasses import dataclass
 from typing import Protocol
-from uuid import UUID, uuid4
 
 
 @dataclass
