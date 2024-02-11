@@ -46,9 +46,9 @@ def process_test_data(
         "answers": answers_dict,
     }
     return {
-        "language": subject,
+        "subject": subject,
         "year": year,
         "variant": variant,
-        "tasks": answers_dict,
+        "answers": answers_dict,
         "points": tasks.get_result_points(request),
     }

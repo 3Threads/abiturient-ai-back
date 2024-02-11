@@ -19,8 +19,7 @@ class TaskType(ABC):
             point, correct_answer = question.check_answer(answers[i])
             if point == 1:
                 points += 1
-            else:
-                result[i] = correct_answer
+            result[i] = correct_answer
         return points, result
 
 
