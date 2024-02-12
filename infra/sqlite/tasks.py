@@ -92,3 +92,16 @@ class TasksDatabase:
             "INSERT INTO TASKS(TASK_NUM, TASK_TITLE, TASK_TEXT, TASK_OPTIONS, POINT, TASK_TYPE, YEAR, VARIANT, SUBJECT) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (task_num, task_title, task_text, task_options, point, task_type, year, variant, subject))
         self.con.commit()
+
+    def get_result_points(self, request: dict) -> list[tuple[int, dict[int, str]]]:
+        subject = request["subject"]
+        year = request["year"]
+        variant = request["variant"]
+        tasks = self.get_tasks(subject, year, variant)
+        answers = request["answers"]
+
+        results = []
+        for task in tasks:
+            results.append(task.task.get_result_points(answers[task.task_number-1]))
+
+        return results

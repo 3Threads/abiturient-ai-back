@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from sqlite3 import Connection, Cursor
 
-from core.question import FillTextQuestion, MultipleChoiceQuestion
+from core.question import FillTextQuestion, MultipleChoiceQuestion, TitlingQuestion
 
 
 @dataclass
@@ -33,19 +33,24 @@ class FillWithArticlesQuestionDataBase:
         self.cur.execute("INSERT INTO FillWithArticlesQuestion(TASK_ID, CORRECT_ANSWER) VALUES (?, ?)", (task_id, answer))
         self.con.commit()
 
+    def get_fill_with_articles_questions(self, task_id: int, question_id: int) -> list[FillTextQuestion]:
+        return self.cur.execute("SELECT * FROM FillWithArticlesQuestion WHERE TASK_ID = ? AND QUESTION_ID = ?", (task_id, question_id)).fetchall()
 
 @dataclass
 class TitlingQuestionDataBase:
     con: Connection
     cur: Cursor
 
-    def insert_titling_question(self, task_id: int, paragraph: str, answers: list[str]):
+    def insert_titling_question(self, task_id: int, title: str, answers: list[str]):
         answer = answers[0]
         for i in range(len(answers)):
             if i != 0:
                 answer = answer + f"#{answers[i]}"
-        self.cur.execute("INSERT INTO TitlingQuestion(TASK_ID, PARAGRAPH, CORRECT_ANSWERS) VALUES (?, ?, ?)", (task_id, paragraph, answer))
+        self.cur.execute("INSERT INTO TitlingQuestion(TASK_ID, TITLE, CORRECT_ANSWERS) VALUES (?, ?, ?)", (task_id, title, answer))
         self.con.commit()
+
+    def get_titling_questions(self, task_id: int, question_id: int) -> list[TitlingQuestion]:
+        return self.cur.execute("SELECT * FROM TitlingQuestion WHERE TASK_ID = ? AND QUESTION_ID = ?", (task_id, question_id)).fetchall()
 
 
 @dataclass
@@ -57,8 +62,8 @@ class FillTextQuestionDataBase:
         self.cur.execute("INSERT INTO FillTextQuestion(TASK_ID, QUESTION_ID, CORRECT_ANSWER) VALUES (?, ?, ?)", (task_id, question_id, answer))
         self.con.commit()
 
-    def get_fill_text_questions(self, task_id: int) -> list[FillTextQuestion]:
-        return self.cur.execute("SELECT * FROM FillTextQuestion WHERE TASK_ID = ?", (task_id,)).fetchall()
+    def get_fill_text_questions(self, task_id: int, question_id: int) -> list[FillTextQuestion]:
+        return self.cur.execute("SELECT * FROM FillTextQuestion WHERE TASK_ID = ? AND QUESTION_ID = ?", (task_id, question_id)).fetchall()
 
     # def insert_essay_question(self, question: str, answer: str):
     #     pass
