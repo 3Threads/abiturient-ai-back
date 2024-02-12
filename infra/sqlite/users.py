@@ -26,8 +26,8 @@ class UsersDatabase:
         print(user)
         try:
             self.cur.execute(
-                "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD, HAVE_SUBSCRIBE, SUBSCRIBE_ID, START_SUBSCRIBE_DATE, END_SUBSCRIBE_DATE) VALUES ("
-                "?, ?, ?, 0, NULL, NULL, NULL)",
+                "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD, SUBSCRIBE_ID, START_SUBSCRIBE_DATE, END_SUBSCRIBE_DATE) VALUES ("
+                "?, ?, ?, NULL, NULL, NULL)",
                 [user.username, user.email, hash_password(password)],
             )
         except IntegrityError:

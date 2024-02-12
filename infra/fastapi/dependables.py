@@ -3,6 +3,7 @@ from typing import Annotated
 from fastapi import Depends
 from fastapi.requests import Request
 
+from core.subscribes import SubscribesRepository
 from core.task import TasksRepository
 from core.users import UsersRepository
 
@@ -19,3 +20,10 @@ def get_users_repository(request: Request) -> UsersRepository:
 
 
 UsersRepositoryDependable = Annotated[UsersRepository, Depends(get_users_repository)]
+
+
+def get_subscribes_repository(request: Request) -> SubscribesRepository:
+    return request.app.state.subscribes  # type: ignore
+
+
+SubscribesRepositoryDependable = Annotated[SubscribesRepository, Depends(get_subscribes_repository)]
