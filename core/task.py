@@ -15,7 +15,6 @@ class TaskType(ABC):
     def get_result_points(self, answers: list[str]) -> tuple[int, dict[int, str]]:
         points = 0
         result = {}
-        print(len(answers), len(self.questions))
         for i, question in enumerate(self.questions):
             point, correct_answer = question.check_answer(answers[i])
             if point == 1:

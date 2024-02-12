@@ -12,7 +12,6 @@ sign_api = APIRouter(tags=["Login"])
     status_code=200
 )
 def sign_in(email: str, password: str, users_repository: UsersRepositoryDependable):
-    print(email, password)
     try:
         user = users_repository.try_authorization(email, password)
         return {"user": user}

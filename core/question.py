@@ -14,7 +14,6 @@ class MultipleChoiceQuestion(QuestionType):
     correct_option: str
 
     def check_answer(self, user_answer: str) -> tuple[int, str]:
-        print(user_answer, self.correct_option)
         if user_answer == self.correct_option:
             return 1, self.correct_option
         return 0, self.correct_option

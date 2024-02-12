@@ -20,7 +20,6 @@ def db() -> Database:
 def test_insert_multiple_choice_question(db: Database) -> None:
     task = TasksDatabase(db.get_connection(), db.get_cursor())
     task.insert_task(1, "title", "", "", 10, "listening", 2021, 1, "english")
-    print(task.get_tasks("english", 2021, 1))
     mcq = MultipleChoiceQuestionDataBase(db.get_connection(), db.get_cursor())
     mcq.insert_multiple_choice_question(1, "question", ["option1", "option2", "option3"], "option1")
     mcq.insert_multiple_choice_question(1, "q", ["1", "2", "3"], "2")
