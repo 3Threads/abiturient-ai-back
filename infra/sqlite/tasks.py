@@ -42,14 +42,14 @@ class TasksDatabase:
                 case "titling":
                     questions_info = self.get_questions_info("TitlingQuestion", id)
                     for id, t_id, paragraph, correct_answers in questions_info:
-                        question = TitlingQuestion(paragraph, correct_answers.split('#'))
+                        question = TitlingQuestion(paragraph, correct_answers)
                         questions.append(question)
                     task_1 = TitlingTask(questions, task_text.split('#'))
                 case "reading":
                     questions_info = self.get_questions_info("MultipleChoiceQuestion", id)
                     for id, t_id, question_text, question_options, question_answer in questions_info:
                         question = MultipleChoiceQuestion(question_text, question_options.split('#'),
-                                                          question_answer.split('#'))
+                                                          question_answer)
                         questions.append(question)
                     task_1 = ReadAndWriteTask(questions, task_text)
                 case "filling":
@@ -74,7 +74,7 @@ class TasksDatabase:
                     questions_info = self.get_questions_info("MultipleChoiceQuestion", id)
                     for id, t_id, question_text, question_options, question_answer in questions_info:
                         question = MultipleChoiceQuestion(question_text, question_options.split('#'),
-                                                          question_answer.split('#'))
+                                                          question_answer)
                         questions.append(question)
                     task_1 = ListeningTask(questions)
             task = Task(task_num, task_title, point, task_type, task_1)
