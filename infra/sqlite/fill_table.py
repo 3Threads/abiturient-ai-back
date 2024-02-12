@@ -165,7 +165,7 @@ def fill_table():
                                 were the result ….. (2) hard work, continuous effort ….. (3) a great wish to try again. The invention of the radio has brought
                                 distant places closer together, and the invention of the car has made it possible to travel long distances. An invention might
                                 also be ….. (4) better way of doing something, ….. (5) example, a tool to make a job easier or some new farming method.
-                                When looking for the examples of inventions ..... (6) changed the world, we should consider not just the item, but also the
+                                When looking for the examples of inventions ….. (6) changed the world, we should consider not just the item, but also the
                                 progress it brought about. Many inventions, such as musical instruments ….. (7) sports equipment, have made our life more
                                 comfortable and enjoyable. Although there are a lot of inventions, not every good idea leads ….. (8) immediate success.
                                 The key to the success of the invention is to be in the right place ….. (9) the right time. It is believed that ….. (10) the 15th

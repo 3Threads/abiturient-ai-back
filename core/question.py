@@ -21,14 +21,13 @@ class MultipleChoiceQuestion(QuestionType):
 
 @dataclass
 class TitlingQuestion(QuestionType):
-    paragraph: str
-    correct_titles: list[str]
+    title: str
+    correct_titles: str
 
     def check_answer(self, user_answer: str) -> tuple[int, str]:
-        user_answers = user_answer.split(",")
-        if user_answers == self.correct_titles:
-            return 1, ",".join(self.correct_titles)
-        return 0, ",".join(self.correct_titles)
+        if user_answer == self.correct_titles:
+            return 1, self.correct_titles
+        return 0, self.correct_titles
 
 
 @dataclass

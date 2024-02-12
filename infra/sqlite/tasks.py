@@ -57,7 +57,7 @@ class TasksDatabase:
                     for id,t_id,  question_answer in questions_info:
                         question = FillTextQuestion(question_answer)
                         questions.append(question)
-                    task_1 = FillTextTask(questions, task_text, task_options.splite('#'))
+                    task_1 = FillTextTask(questions, task_text, task_options.split('#'))
                 case "articles":
                     questions_info = self.get_questions_info("FillWithArticlesQuestion", id)
                     for id, t_id, question_answer in questions_info:
