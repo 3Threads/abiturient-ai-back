@@ -51,7 +51,7 @@ class FillWithArticlesTask(TaskType):
 
 @dataclass
 class EmailTask(TaskType):
-    img_link: str
+    text: str
 
 
 @dataclass

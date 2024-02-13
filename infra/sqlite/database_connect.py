@@ -2,7 +2,7 @@ import sqlite3
 from dataclasses import dataclass
 from sqlite3 import Connection, Cursor
 
-from infra.constants import SQL_FILE_TEST, TITLING, READING, FILLING, ARTICLES
+from infra.constants import SQL_FILE_TEST, TITLING, READING, FILLING, ARTICLES, ESSAY, EMAIL
 from infra.sqlite.questions import (
     TitlingQuestionDataBase,
     MultipleChoiceQuestionDataBase,
@@ -309,3 +309,30 @@ class Database:
         articlesDB.insert_fill_with_articles_question(4, ["in"])
         articlesDB.insert_fill_with_articles_question(4, ["that", "which"])
         articlesDB.insert_fill_with_articles_question(4, ["but", "though"])
+
+        taskDB.insert_task(
+            5,
+            '''The advertisement given below is taken from an online newspaper. Read the advertisement and write an
+                        email to the editor of the newspaper asking for more information about the details which are indicated. The
+                        beginning is given on the answer sheet. Do not write your or anybody else’s name or surname in the letter.''',
+            f'''Do you want to learn how to be confident and express yourself
+                        clearly? Then read this advert carefully.
+                        Arts Centre invites you to join ‘Professional development Workshop’.
+                        The workshop will take place <b>in the centre of Rome</b>¹. Attendance is
+                        free. <b>An American psychologist</b>² will conduct the workshop. It is held
+                        on June 5. The workshop will start <b>in the afternoon</b>.³ All the
+                        participants will receive a Certificate of Attendance. For more
+                        information, please contact us at: artscen@gmail.com
+                        <br>1.Where exactly?
+                        <br>2.Who?
+                        <br>3.When exactly?''',
+            "",
+            6,
+            EMAIL,
+            2021,
+            1,
+            "english",
+        )
+
+        taskDB.insert_task(6, "Read the essay task and write between 120-150 words.", '''Some people think that it’s very hard to be a doctor nowadays. Do you agree or disagree with this opinion? State your opinion and support it with reasons and examples.''',
+                           "", 16, ESSAY, 2021, 1, "english")

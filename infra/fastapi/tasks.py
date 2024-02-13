@@ -24,12 +24,12 @@ def process_test_data(
     task2: list[str] = Form(...),
     task3: list[str] = Form(...),
     task4: list[str] = Form(...),
-    # task5: list[str] = Form(...),
-    # task6: list[str] = Form(...),
+    task5: list[str] = Form(...),
+    task6: list[str] = Form(...),
     # task7: list[str] = Form(...),
     # task8: list[str] = Form(...),
 ):
-    answers = [task1, task2, task3, task4]
+    answers = [task1, task2, task3, task4, task5, task6]
 
     answers_dict = {}
     for task_num, task in enumerate(answers):
