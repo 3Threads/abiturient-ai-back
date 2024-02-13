@@ -45,8 +45,8 @@ class FillWithArticlesQuestion(QuestionType):
     correct_answers: list[str]
 
     def check_answer(self, user_answer: str) -> tuple[int, str]:
-        user_answers = user_answer.split(",")
-        if user_answers == self.correct_answers:
+        print(self.correct_answers, user_answer)
+        if user_answer in self.correct_answers:
             return 1, ",".join(self.correct_answers)
         return 0, ",".join(self.correct_answers)
 
