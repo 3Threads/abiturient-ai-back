@@ -25,15 +25,14 @@ class UsersDatabase:
 
     def create(self, username: str, email: str, password: str) -> User:
         subscription = self.subscribes_db.get_subscribe_by_type("Free")
-        user = User(username, email, "Free", "", "")
 
         try:
             self.cur.execute(
                 "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD, SUBSCRIBE_ID, START_SUBSCRIBE_DATE, END_SUBSCRIBE_DATE) VALUES ("
                 "?, ?, ?, ?, NULL, NULL)",
                 [
-                    user.username,
-                    user.email,
+                    username,
+                    email,
                     hash_password(password),
                     subscription.subscribe_id,
                 ],
@@ -42,6 +41,8 @@ class UsersDatabase:
             raise UserAlreadyExistError()
 
         self.con.commit()
+
+        user = self.try_authorization(email, password)
         return user
 
     def try_authorization(self, email: str, password: str) -> User:
@@ -51,7 +52,14 @@ class UsersDatabase:
         ).fetchone()
         if user_db is not None:
             subscription = self.subscribes_db.get_subscribe_by_id(user_db[4])
-            user = User(user_db[1], user_db[2], subscription.subscribe_type, user_db[5], user_db[6])
+            user = User(
+                user_db[0],
+                user_db[1],
+                user_db[2],
+                subscription.subscribe_type,
+                user_db[5],
+                user_db[6],
+            )
             print(user)
             return user
 

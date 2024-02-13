@@ -8,7 +8,7 @@ subscribe_api = APIRouter(tags=["Subscribe"])
 
 
 class AddSubscribeRequest(BaseModel):
-    subscribe_id: int
+    subscribe_type: str
     user_id: int
 
 
@@ -50,12 +50,14 @@ def add_subscribe(request: AddNewSubscribeRequest, subscribe_repository: Subscri
     subscribe_repository.add_subscribe(request.subscribe_type, request.subscribe_price, request.subscribe_trial)
 
 
-@subscribe_api.put(
+@subscribe_api.post(
     "/subscribe",
-    status_code=200,
+    status_code=201,
 )
 def add_subscribe_to_user(
         request: AddSubscribeRequest,
         subscribe_repository: SubscribesRepositoryDependable,
 ):
-    subscribe_repository.add_subscribe_to_user(request.subscribe_id, request.user_id)
+    print(request)
+    subscribe_id = subscribe_repository.get_subscribe_by_type(request.subscribe_type).subscribe_id
+    subscribe_repository.add_subscribe_to_user(subscribe_id, request.user_id)

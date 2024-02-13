@@ -4,6 +4,7 @@ from typing import Protocol
 
 @dataclass
 class User:
+    id: int
     username: str
     email: str
     subscribe_type: str
