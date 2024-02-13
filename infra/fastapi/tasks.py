@@ -15,7 +15,7 @@ def get_tasks(subject: str, year: int, variant: int, tasks: TasksRepositoryDepen
     result_tasks = tasks.get_tasks(subject, year, variant)
     if len(result_tasks):
         return {"tasks": result_tasks}
-    return JSONResponse(status_code=404, content={"message": "Tasks not found. will be added soon."})
+    return JSONResponse(status_code=404, content={"message": "Tasks not found, will be available soon."})
 
 
 @tasks_api.post("/tasks", status_code=201)
