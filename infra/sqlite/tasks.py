@@ -93,7 +93,7 @@ class TasksDatabase:
             (task_num, task_title, task_text, task_options, point, task_type, year, variant, subject))
         self.con.commit()
 
-    def get_result_points(self, request: dict) -> list[tuple[int, dict[int, str]]]:
+    def get_result_points(self, request: dict) -> list[tuple[int, list[tuple[int, str]]]]:
         subject = request["subject"]
         year = request["year"]
         variant = request["variant"]

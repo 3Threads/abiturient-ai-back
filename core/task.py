@@ -12,14 +12,16 @@ class TaskType(ABC):
     def get_questions(self) -> list[QuestionType]:
         return self.questions
 
-    def get_result_points(self, answers: list[str]) -> tuple[int, dict[int, str]]:
+    def get_result_points(
+        self, answers: list[str]
+    ) -> tuple[int, list[tuple[int, str]]]:
         points = 0
-        result = {}
+        result = []
         for i, question in enumerate(self.questions):
             point, correct_answer = question.check_answer(answers[i])
             if point == 1:
                 points += 1
-            result[i] = correct_answer
+            result.append((point, correct_answer))
         return points, result
 
 
