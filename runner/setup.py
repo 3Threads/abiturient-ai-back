@@ -1,6 +1,7 @@
 import os
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from infra.constants import DATABASE_NAME, SQL_FILE
 from infra.fastapi.login import sign_api
@@ -9,8 +10,6 @@ from infra.fastapi.tasks import tasks_api
 from infra.in_memory.tasks import TasksInMemory
 from infra.in_memory.users import UsersInMemory
 from infra.sqlite.database_connect import Database
-from fastapi.middleware.cors import CORSMiddleware
-
 from infra.sqlite.subscribes import SubscribesDataBase
 from infra.sqlite.tasks import TasksDatabase
 from infra.sqlite.users import UsersDatabase
@@ -31,7 +30,7 @@ def init_app() -> FastAPI:
 
     if os.getenv("WALLET_REPOSITORY_KIND", "memory") == "sqlite":
         db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))
-        db.initial()    # Uncomment this if you want to create initial db
+        # db.initial()    # Uncomment this if you want to create initial db
         app.state.tasks = TasksDatabase(db.con, db.cur)
         app.state.subscribes = SubscribesDataBase(db.con, db.cur)
         app.state.users = UsersDatabase(db.con, db.cur, app.state.subscribes)
