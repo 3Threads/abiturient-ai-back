@@ -9,13 +9,26 @@ class SubscribesDataBase:
     con: Connection
     cur: Cursor
 
-    def add_subscribe(self, subscribe_type: str, subscribe_price: float, subscribe_trial: int):
-        self.cur.execute("INSERT INTO SUBSCRIBE (SUBSCRIBE_TYPE, SUBSCRIBE_PRICE, TRIAL_DAY) VALUES (?,?,?)",
-                         [subscribe_type, subscribe_price, subscribe_trial])
+    def add_subscribe(
+        self, subscribe_type: str, subscribe_price: float, subscribe_trial: int
+    ):
+        self.cur.execute(
+            "INSERT INTO SUBSCRIBE (SUBSCRIBE_TYPE, SUBSCRIBE_PRICE, TRIAL_DAY) VALUES (?,?,?)",
+            [subscribe_type, subscribe_price, subscribe_trial],
+        )
         self.con.commit()
 
     def get_subscribe_by_id(self, subscribe_id: int) -> Subscribe:
-        subscribe = self.cur.execute("SELECT * FROM SUBSCRIBE WHERE ID = ?", [subscribe_id]).fetchone()
+        subscribe = self.cur.execute(
+            "SELECT * FROM SUBSCRIBE WHERE ID = ?", [subscribe_id]
+        ).fetchone()
+        if subscribe is not None:
+            return Subscribe(subscribe[0], subscribe[1], subscribe[2], subscribe[3])
+
+    def get_subscribe_by_type(self, subscribe_type: str) -> Subscribe:
+        subscribe = self.cur.execute(
+            "SELECT * FROM SUBSCRIBE WHERE SUBSCRIBE_TYPE = ?", [subscribe_type]
+        ).fetchone()
         if subscribe is not None:
             return Subscribe(subscribe[0], subscribe[1], subscribe[2], subscribe[3])
 
@@ -33,5 +46,7 @@ class SubscribesDataBase:
             "SET SUBSCRIBE_ID = ?,"
             " START_SUBSCRIBE_DATE = CURRENT_DATE,"
             " END_SUBSCRIBE_DATE = DATE(CURRENT_DATE, ?)"
-            "WHERE ID = ?", [subscribe_id, f'{subscribe.subscribe_trial} days', user_id])
+            "WHERE ID = ?",
+            [subscribe_id, f"{subscribe.subscribe_trial} days", user_id],
+        )
         self.con.commit()

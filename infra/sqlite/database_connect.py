@@ -9,6 +9,7 @@ from infra.sqlite.questions import (
     FillTextQuestionDataBase,
     FillWithArticlesQuestionDataBase,
 )
+from infra.sqlite.subscribes import SubscribesDataBase
 from infra.sqlite.tasks import TasksDatabase
 
 
@@ -39,6 +40,13 @@ class Database:
         return self.cur
 
     def fill_table(self) -> None:
+        subscriptionDB = SubscribesDataBase(self.con, self.cur)
+        subscriptionDB.add_subscribe("Free", 0.0, 365)
+        subscriptionDB.add_subscribe("PremiumMonthly", 10, 30)
+        subscriptionDB.add_subscribe("PremiumAnnually", 90, 365)
+        subscriptionDB.add_subscribe("UltimateMonthly", 30, 30)
+        subscriptionDB.add_subscribe("UltimateAnnually", 280, 365)
+
         taskDB = TasksDatabase(self.con, self.cur)
         titlingDB = TitlingQuestionDataBase(self.con, self.cur)
         mcqDB = MultipleChoiceQuestionDataBase(self.con, self.cur)
