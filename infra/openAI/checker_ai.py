@@ -47,10 +47,15 @@ class CheckerAI:
             model="gpt-4-0125-preview",
             messages=[
                 {
+                    "role": "system",
+                    "content": "Please output valid json",
+                },
+                {
+
                     "role": "user",
                     "content": prompt[0]
                 },
             ],
-            # response_format={"type": "json_object"},
+            response_format={"type": "json_object"},
         )
         return response.choices[0].message.content

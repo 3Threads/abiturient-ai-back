@@ -28,7 +28,9 @@ AI_OUTPUT_EXAMPLE = """Follow this example for the output:
   "max Fluency/Task fulfilment point": int,
   "my grammar point": int,
   "max grammar point": int,
-  "suggestions": str
+  "grammar mistakes": list[str],
+  "corrected version of grammar mistakes": list[str],
+  "possible arguments": list[str],
 }
 """
 EMAIL_EVALUATION_SCHEME = """Email Evaluation Scheme: 
@@ -47,83 +49,46 @@ there are no mistakes or minimal ones.
 ESSAY_EVALUATION_SCHEME = """I'll be submitting essays to you and you'll be grading them. I'll tell you the grading system and what format you'll be doing it in.
 
 Fluency/Task fulfilment Evaluation system:
-8-7 points - the writing is very good. It is perfect
-Responds to the task.
-- The meaning is clear and understandable
-conveyed. Supported by examples and
-with personal opinions.
-- Moving from one sentence to another
-It is logical.
-6-5 points - the writing is good, answers the task, however
-in some cases redundant or, on the contrary,
-Insufficient information is provided.
-- The idea is mostly good
-conveyed. It shows personal opinion and/or
-An example is given.
-- Moving from one sentence to another
-It is mostly logical, although some
-In case of straining the reader's attention
-It suits.
-4-3 points - the writing is of an average level. The idea is basically
-It's understandable, but in some cases it makes sense
-is in trouble The information is general, provisions
-is repeated. Sentences to each other logically
-poorly connected. Personal opinion
-It is not clearly visible.
-  Or: the writing is 61-109 words, respectively
-The number of errors is less.
-  Or: the text only partially answers
-task.
-2-1 points - the writing is (very) weak. information
-It is general and scarce. Understanding the meaning, mostly
-In this case, it is impossible.
-Or: The writing is 60 words or less
-A few suggestions.
-Or: Provisions of a general kind which
-Not related to a specific topic, often
-is repeated.
-0 points - the sheet is blank or written
-Only one sentence or
-The assignment instructions have been downloaded.
-Or: the writing does not answer the task.
+8-7 points:
+- the writing is very good. It is perfect Responds to the task.
+- The meaning is clear and understandable conveyed. Supported by examples and with personal opinions.
+- Moving from one sentence to another is logical.
+6-5 points:
+- the writing is good, answers the task, however in some cases redundant or, on the contrary, insufficient information is provided.
+- The idea is mostly good conveyed. It shows personal opinion and/or An example is given.
+- Moving from one sentence to another is mostly logical, but in some instances, the reader may lose focus
+4-3 points: 
+- The writing is of average quality. The opinion is generally understandable, but in some cases, it lacks depth. 
+- Information is generally provided, but explanations are lacking. 
+- Transitions between paragraphs are not well-connected logically. 
+- Personal opinion is not clear, Or: The writing consists of 61-109 words, or: The writing only partially addresses the task. 
+2-1 points:
+- The writing is (very) concise. Information is generally relevant and to the point. 
+- Understanding the opinion, in most cases, is difficult, Or: The writing is 60 words or fewer /written with few transitions, Or: Some general ideas, which are not directly related to a specific theme, are often repeated.
+0 points:
+- The paragraph is either empty or contains only one sentence or is solely a repetition of the assignment instructions, Or: The writing does not address the task.
 
 Evaluation of the grammar part:
-8-7 points - the number of grammatical errors is 3
-does not exceed It is difficult to use
-Prepositions and constructions.
-- - Vocabulary is rich.
-- Accepted in spelling and punctuation
-Errors are minor.
-6-5 points - 4-7 grammatical errors are allowed,
-Incorrect syntactic structures
-Including, but it does not prevent
-to understand the main idea.
-  - Vocabulary of task and request
-It is compatible.
-  - in spelling and punctuation
-The mistakes made are mainly by hand
-does not prevent the understanding of the thought.
+8-7 points:
+- The number of grammatical errors is limited to 2. 
+- Difficult expressions and constructions are used. 
+- The vocabulary is rich. Errors in spelling and punctuation are negligible.
+6-5 points:
+- There may be 3-6 grammatical errors, not counting incorrect syntactic structures, but these do not hinder the understanding of the main idea. 
+- The vocabulary is appropriate. 
+- Errors in spelling and punctuation do not significantly impede understanding.
+4-3 points:
+- There may be 7-11 grammatical errors, with predominantly simple or incorrect syntactic structures. 
+- The vocabulary is fairly basic and limited. 
+- Errors in spelling and punctuation have a systematic pattern that sometimes hinders understanding.
+2-1 points:
+- There are more than 11 grammatical errors. 
+- The sentences are structurally incorrect. 
+- The vocabulary is very simple and inappropriate. 
+- A good understanding of spelling and punctuation rules is lacking.
+0 points:
+- Several sentences are constructed in a way that makes it difficult to extract the main idea. 
+- Errors are present in every sentence.
 
-4-3 points - 8-11 grammatical errors are allowed.
-Too simple and/or is used
-Incorrect syntactic structures.
-  - Vocabulary is quite simple and
-is limited.
-  - in spelling and punctuation
-The errors made are of a systematic nature
-has, which, in some cases, prevents
-to understand the meaning.
-
-2-1 points - more than 11 grammars are allowed
-error. sentences structurally
-is faulty.
-- Vocabulary is very simple and irrelevant.
-- Reveals spelling and punctuation
-Poor knowledge of the rules.
-
-0 points - several sentences are written,
-from which it is impossible to draw an opinion.
-An error is made in every sentence.
-
-The entire essay is evaluated with 16 points, 8 points in thought and 8 points in grammar, according to the evaluation system that I have written for you, you will write a separate score for Fluency/Task fulfilment and a separate score for grammar.
+The entire essay is evaluated with 16 points, 8 points in Fluency/Task fulfilment and 8 points in grammar, according to the evaluation system that I have written for you, you will write a separate score for Fluency/Task fulfilment and a separate score for grammar.
 """
