@@ -164,10 +164,10 @@ class Database:
             2,
             "What is the story about?",
             [
-                "A.An Arctic scientist.",
-                "B.An environmentalist.",
-                "C.A swimming champion.",
-                "D.A person interested in oceanology.",
+                "A. An Arctic scientist.",
+                "B. An environmentalist.",
+                "C. A swimming champion.",
+                "D. A person interested in oceanology.",
             ],
             "B",
         )
@@ -326,9 +326,9 @@ class Database:
             f'''Do you want to learn how to be confident and express yourself
                         clearly? Then read this advert carefully.
                         Arts Centre invites you to join ‘Professional development Workshop’.
-                        The workshop will take place <b>in the centre of Rome</b>¹. Attendance is
-                        free. <b>An American psychologist</b>² will conduct the workshop. It is held
-                        on June 5. The workshop will start <b>in the afternoon</b>.³ All the
+                        The workshop will take place <b>in the centre of Rome¹</b>. Attendance is
+                        free. <b>An American psychologist²</b> will conduct the workshop. It is held
+                        on June 5. The workshop will start <b>in the afternoon³</b>. All the
                         participants will receive a Certificate of Attendance. For more
                         information, please contact us at: artscen@gmail.com
                         <br>1.Where exactly?
