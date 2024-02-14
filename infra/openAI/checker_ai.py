@@ -21,7 +21,7 @@ class CheckerAI:
 
     def check_email(self, email):
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-3.5-turbo-instruct",
             messages=[
                 {
                     "role": "user",
@@ -34,22 +34,21 @@ class CheckerAI:
         return response.choices[0].message.content
 
     def check_essay(self, essay, title):
+        prompt = (
+            self.essay_evaluation_scheme
+            + "\n"
+            + self.ai_output_example
+            + "This is title: "
+            + title
+            + "\n this is my essay:\n"
+            + essay,
+        )
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4-0125-preview",
             messages=[
-                # {
-                #     "role": "system",
-                #     "content": "Please output valid json.",
-                # },
                 {
                     "role": "user",
-                    "content": self.essay_evaluation_scheme
-                    + "\n"
-                    + self.ai_output_example
-                    + "This is title: "
-                    + title
-                    + "\n this is my essay:\n"
-                    + essay,
+                    "content": prompt[0]
                 },
             ],
             # response_format={"type": "json_object"},

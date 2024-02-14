@@ -30,12 +30,15 @@ def init_app() -> FastAPI:
     app.include_router(sign_api)
     app.include_router(subscribe_api)
 
-    # print(
-    #     CheckerAI().check_essay(
-    #         "Being a doctor nowadays? So hard, seriously. Lots of reasons. First, tons of new stuff to learn all the time. Like, no chill. Then, paperwork - insane. Like, why so many forms? And patients? Not always happy campers. But, like, here's the kicker - it's still kinda cool. Helping people feels good. Even with all the headaches, making a difference rocks. So, yeah, being a doctor's tough, but the warm fuzzies from helping? Worth it. Hard, but, you know, not the worst gig out there.",
-    #         """Some people think that it’s very hard to be a doctor nowadays. Do you agree or disagree with this opinion? State your opinion and support it with reasons and examples""",
-    #     )
-    # )
+    print(
+        CheckerAI().check_essay(
+            """Nowadays most 17-18 years old children have to choose what to study at the university. While thinking of a future profession the tend to decline an opportunity of becoming a doctor after realizing how hard the studying will be. So, I completely agree with this issue and I will strengthen my opinion with appropriate arguments. 
+First of all, I want to emphasize that the length of studying course at a medical university is much longer than at others. In Georgia the difference is approximately 2 years. Secondly, for me it is almost impossible to imagine the difficulty of studying anatomy because it is certain how complicated a human's body is.
+However, some people may think that after becoming a doctor exhausting days spent on studying turn into pleasurable life, but although doctors have high-paid jobs, it is still difficult to face to the responsibility of patients' lives.
+To conclude, it seems obvious to me that becoming a doctor hives one responsibility which only few can have. It makes a doctor's life difficult.""",
+            """Some people think that it’s very hard to be a doctor nowadays. Do you agree or disagree with this opinion? State your opinion and support it with reasons and examples""",
+        )
+    )
 
     if os.getenv("WALLET_REPOSITORY_KIND", "memory") == "sqlite":
         db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))
