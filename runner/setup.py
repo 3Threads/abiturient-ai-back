@@ -30,12 +30,12 @@ def init_app() -> FastAPI:
     app.include_router(sign_api)
     app.include_router(subscribe_api)
 
-    print(
-        CheckerAI().check_essay(
-            "Being a doctor nowadays? So hard, seriously. Lots of reasons. First, tons of new stuff to learn all the time. Like, no chill. Then, paperwork - insane. Like, why so many forms? And patients? Not always happy campers. But, like, here's the kicker - it's still kinda cool. Helping people feels good. Even with all the headaches, making a difference rocks. So, yeah, being a doctor's tough, but the warm fuzzies from helping? Worth it. Hard, but, you know, not the worst gig out there.",
-            """Some people think that it’s very hard to be a doctor nowadays. Do you agree or disagree with this opinion? State your opinion and support it with reasons and examples""",
-        )
-    )
+    # print(
+    #     CheckerAI().check_essay(
+    #         "Being a doctor nowadays? So hard, seriously. Lots of reasons. First, tons of new stuff to learn all the time. Like, no chill. Then, paperwork - insane. Like, why so many forms? And patients? Not always happy campers. But, like, here's the kicker - it's still kinda cool. Helping people feels good. Even with all the headaches, making a difference rocks. So, yeah, being a doctor's tough, but the warm fuzzies from helping? Worth it. Hard, but, you know, not the worst gig out there.",
+    #         """Some people think that it’s very hard to be a doctor nowadays. Do you agree or disagree with this opinion? State your opinion and support it with reasons and examples""",
+    #     )
+    # )
 
     if os.getenv("WALLET_REPOSITORY_KIND", "memory") == "sqlite":
         db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))

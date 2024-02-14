@@ -2,7 +2,10 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 
 from core.errors import UserAlreadyExistError, UserNotFoundError
-from infra.fastapi.dependables import UsersRepositoryDependable, SubscribesRepositoryDependable
+from infra.fastapi.dependables import (
+    UsersRepositoryDependable,
+    SubscribesRepositoryDependable,
+)
 
 subscribe_api = APIRouter(tags=["Subscribe"])
 
@@ -33,11 +36,7 @@ class SubscribeListEnvelope(BaseModel):
     subscribes: list[SubscribeItem]
 
 
-@subscribe_api.get(
-    "/subscribes",
-    status_code=200,
-    response_model=SubscribeListEnvelope
-)
+@subscribe_api.get("/subscribes", status_code=200, response_model=SubscribeListEnvelope)
 def get_subscribes(subscribe_repository: SubscribesRepositoryDependable):
     return {"subscribes": subscribe_repository.get_subscribes()}
 
@@ -46,8 +45,13 @@ def get_subscribes(subscribe_repository: SubscribesRepositoryDependable):
     "/subscribes",
     status_code=200,
 )
-def add_subscribe(request: AddNewSubscribeRequest, subscribe_repository: SubscribesRepositoryDependable):
-    subscribe_repository.add_subscribe(request.subscribe_type, request.subscribe_price, request.subscribe_trial)
+def add_subscribe(
+    request: AddNewSubscribeRequest,
+    subscribe_repository: SubscribesRepositoryDependable,
+):
+    subscribe_repository.add_subscribe(
+        request.subscribe_type, request.subscribe_price, request.subscribe_trial
+    )
 
 
 @subscribe_api.post(
@@ -55,9 +59,12 @@ def add_subscribe(request: AddNewSubscribeRequest, subscribe_repository: Subscri
     status_code=201,
 )
 def add_subscribe_to_user(
-        request: AddSubscribeRequest,
-        subscribe_repository: SubscribesRepositoryDependable,
+    request: AddSubscribeRequest,
+    subscribe_repository: SubscribesRepositoryDependable,
+    users_repository: UsersRepositoryDependable,
 ):
-    print(request)
-    subscribe_id = subscribe_repository.get_subscribe_by_type(request.subscribe_type).subscribe_id
+    subscribe_id = subscribe_repository.get_subscribe_by_type(
+        request.subscribe_type
+    ).subscribe_id
     subscribe_repository.add_subscribe_to_user(subscribe_id, request.user_id)
+    return {"user": users_repository.get_user_by_id(request.user_id)}

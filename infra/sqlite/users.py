@@ -60,7 +60,25 @@ class UsersDatabase:
                 user_db[5],
                 user_db[6],
             )
-            print(user)
+            return user
+
+        raise UserNotFoundError()
+
+    def get_user_by_id(self, id: int):
+        user_db = self.cur.execute(
+            "SELECT * FROM USERS WHERE ID = ?",
+            [id],
+        ).fetchone()
+        if user_db is not None:
+            subscription = self.subscribes_db.get_subscribe_by_id(user_db[4])
+            user = User(
+                user_db[0],
+                user_db[1],
+                user_db[2],
+                subscription.subscribe_type,
+                user_db[5],
+                user_db[6],
+            )
             return user
 
         raise UserNotFoundError()
