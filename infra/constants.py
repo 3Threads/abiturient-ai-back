@@ -20,8 +20,18 @@ EMAIL = "email"
 ESSAY = "essay"
 
 
-AI_PRE_TEXT="Hello, I want that your response model should like <my point>/<max point> \\n  <correct answer>. without any introduction/ \n"
-EMAIL_PRE_TEXT='''Email Evaluation Scheme: 
+AI_OUTPUT_EXAMPLE = """Follow this example for the output:
+{
+  "my total point": int,
+  "max total point": int,
+  "my Fluency/Task fulfilment point": int,
+  "max Fluency/Task fulfilment point": int,
+  "my grammar point": int,
+  "max grammar point": int,
+  "suggestions": str
+}
+"""
+EMAIL_EVALUATION_SCHEME = """Email Evaluation Scheme: 
 
 Total Score: 8 points, Language Proficiency: B1
 
@@ -32,9 +42,9 @@ there are no mistakes or minimal ones.
 3 points: Low than average writing. Used basic grammar structures and there are vocabulary mistakes; Or writing is average level but answers only 2 questions out of 3.
 2 points: Weak understanding of language. Vocabulary is simple. Answered only on 1 question or there are not more than 3 lines of writing. Idea of the text is not understandable.
 1 points: Very weak understanding of language. Only written 1-2 short sentences or there are mistakes in every sentence. Idea of the text is not understandable.
-0 points: Writing doesn't answer the exercise or writing was left empty.'''
+0 points: Writing doesn't answer the exercise or writing was left empty."""
 
-ESSAY_PRE_TEXT='''I'll be submitting essays to you and you'll be grading them. I'll tell you the grading system and what format you'll be doing it in.
+ESSAY_EVALUATION_SCHEME = """I'll be submitting essays to you and you'll be grading them. I'll tell you the grading system and what format you'll be doing it in.
 
 Fluency/Task fulfilment Evaluation system:
 8-7 points - the writing is very good. It is perfect
@@ -115,5 +125,5 @@ Poor knowledge of the rules.
 from which it is impossible to draw an opinion.
 An error is made in every sentence.
 
-The entire essay is evaluated with 16 points, 8 points in thought and 8 points in grammar, according to the evaluation system that I have written for you, you will write a separate score for Fluency/Task fulfilment and a separate score for grammar. Write and what was the mistake
-'''
+The entire essay is evaluated with 16 points, 8 points in thought and 8 points in grammar, according to the evaluation system that I have written for you, you will write a separate score for Fluency/Task fulfilment and a separate score for grammar.
+"""

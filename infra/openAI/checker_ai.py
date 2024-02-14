@@ -3,14 +3,18 @@ from dataclasses import dataclass
 
 from openai import OpenAI
 
-from infra.constants import ESSAY_PRE_TEXT, AI_PRE_TEXT
+from infra.constants import (
+    ESSAY_EVALUATION_SCHEME,
+    AI_OUTPUT_EXAMPLE,
+    EMAIL_EVALUATION_SCHEME,
+)
 
 
 @dataclass
 class CheckerAI:
-    ai_pre_text = AI_PRE_TEXT
-    email_initial = "hello, "
-    essay_initial = ESSAY_PRE_TEXT
+    ai_output_example = AI_OUTPUT_EXAMPLE
+    email_evaluation_scheme = EMAIL_EVALUATION_SCHEME
+    essay_evaluation_scheme = ESSAY_EVALUATION_SCHEME
 
     def __init__(self):
         self.client = OpenAI(api_key=(os.getenv("OPENAI_API_KEY")))
@@ -21,7 +25,9 @@ class CheckerAI:
             messages=[
                 {
                     "role": "user",
-                    "content": self.ai_pre_text + self.email_initial + email,
+                    "content": self.ai_output_example
+                    + self.email_evaluation_scheme
+                    + email,
                 }
             ],
         )
@@ -31,15 +37,21 @@ class CheckerAI:
         response = self.client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
+                # {
+                #     "role": "system",
+                #     "content": "Please output valid json.",
+                # },
                 {
                     "role": "user",
-                    "content": self.ai_pre_text
-                    + self.essay_initial
+                    "content": self.essay_evaluation_scheme
+                    + "\n"
+                    + self.ai_output_example
                     + "This is title: "
                     + title
                     + "\n this is my essay:\n"
                     + essay,
-                }
+                },
             ],
+            # response_format={"type": "json_object"},
         )
         return response.choices[0].message.content
