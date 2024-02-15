@@ -22,15 +22,15 @@ ESSAY = "essay"
 
 AI_OUTPUT_EXAMPLE = """Follow this example for the output:
 {
-  "my total point": int,
-  "max total point": int,
-  "my Fluency/Task fulfilment point": int,
-  "max Fluency/Task fulfilment point": int,
-  "my grammar point": int,
-  "max grammar point": int,
-  "grammar mistakes": list[str],
-  "corrected version of grammar mistakes": list[str],
-  "possible arguments": list[str],
+  "my_total_point": int,
+  "max_total_point": int,
+  "my_Fluency/Task_fulfilment_point": int,
+  "max_Fluency/Task_fulfilment_point": int,
+  "my_grammar_point": int,
+  "max_grammar_point": int,
+  "grammar_mistakes": list[str],
+  "corrected_version_of_grammar_mistakes": list[str],
+  "possible_arguments": list[str],
 }
 """
 EMAIL_EVALUATION_SCHEME = """Email Evaluation Scheme: 

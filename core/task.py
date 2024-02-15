@@ -19,8 +19,8 @@ class TaskType(ABC):
         result = []
         for i, question in enumerate(self.questions):
             point, correct_answer = question.check_answer(answers[i])
-            if point == 1:
-                points += 1
+            if point > 0:
+                points += point
             result.append((point, correct_answer))
         return points, result
 

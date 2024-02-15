@@ -57,7 +57,42 @@ class FillWithArticlesQuestion(QuestionType):
 @dataclass
 class EmailQuestion(QuestionType):
     def check_answer(self, user_answer: str) -> tuple[int, str]:
-        return 0, "Not implemented yet ;)"
+        result = """{
+          "my total point": 13,
+          "max total point": 16,
+          "my Fluency/Task fulfilment point": 7,
+          "max Fluency/Task fulfilment point": 8,
+          "my grammar point": 6,
+          "max grammar point": 8,
+          "grammar mistakes": [
+            "17-18 years old children",
+            "the tend to decline",
+            "length of studying course",
+            "a medical university is much longer",
+            "it is certain how complicated",
+            "exhausting days spent on studying turn into pleasurable life",
+            "it is still difficult to face to the responsibility",
+            "becoming a doctor hives one responsibility"
+          ],
+          "corrected version of grammar mistakes": [
+            "17-18-year-old children",
+            "they tend to decline",
+            "length of study",
+            "a medical university is significantly longer",
+            "it is clear how complicated",
+            "exhausting days of study turn into a life of pleasure",
+            "it is still difficult to face the responsibility",
+            "becoming a doctor gives one a responsibility"
+          ],
+          "possible arguments": [
+            "The extensive duration of medical studies compared to other fields.",
+            "The complexity of the human body making medical studies challenging.",
+            "Despite the high pay, the immense responsibility over patients' lives remains a challenge for doctors."
+          ]
+        }"""
+
+        json_result = json.loads(result)
+        return json_result["my total point"], result
 
 
 @dataclass
@@ -74,37 +109,37 @@ class EssayQuestion(QuestionType):
         #     """Some people think that it’s very hard to be a doctor nowadays. Do you agree or disagree with this opinion? State your opinion and support it with reasons and examples""",
         # )
         result = """{
-  "my total point": 13,
-  "max total point": 16,
-  "my Fluency/Task fulfilment point": 7,
-  "max Fluency/Task fulfilment point": 8,
-  "my grammar point": 6,
-  "max grammar point": 8,
-  "grammar mistakes": [
-    "17-18 years old children",
-    "the tend to decline",
-    "length of studying course",
-    "a medical university is much longer",
-    "it is certain how complicated",
-    "exhausting days spent on studying turn into pleasurable life",
-    "it is still difficult to face to the responsibility",
-    "becoming a doctor hives one responsibility"
-  ],
-  "corrected version of grammar mistakes": [
-    "17-18-year-old children",
-    "they tend to decline",
-    "length of study",
-    "a medical university is significantly longer",
-    "it is clear how complicated",
-    "exhausting days of study turn into a life of pleasure",
-    "it is still difficult to face the responsibility",
-    "becoming a doctor gives one a responsibility"
-  ],
-  "possible arguments": [
-    "The extensive duration of medical studies compared to other fields.",
-    "The complexity of the human body making medical studies challenging.",
-    "Despite the high pay, the immense responsibility over patients' lives remains a challenge for doctors."
-  ]
-}"""
+          "my_total_point": 13,
+          "max_total_point": 16,
+          "my_Fluency/Task_fulfilment_point": 7,
+          "max_Fluency/Task_fulfilment_point": 8,
+          "my_grammar_point": 6,
+          "max_grammar_point": 8,
+          "grammar_mistakes": [
+            "17-18 years old children",
+            "the tend to decline",
+            "length of studying course",
+            "a medical university is much longer",
+            "it is certain how complicated",
+            "exhausting days spent on studying turn into pleasurable life",
+            "it is still difficult to face to the responsibility",
+            "becoming a doctor hives one responsibility"
+          ],
+          "corrected_version_of_grammar_mistakes": [
+            "17-18-year-old children",
+            "they tend to decline",
+            "length of study",
+            "a medical university is significantly longer",
+            "it is clear how complicated",
+            "exhausting days of study turn into a life of pleasure",
+            "it is still difficult to face the responsibility",
+            "becoming a doctor gives one a responsibility"
+          ],
+          "possible_arguments": [
+            "The extensive duration of medical studies compared to other fields.",
+            "The complexity of the human body making medical studies challenging.",
+            "Despite the high pay, the immense responsibility over patients' lives remains a challenge for doctors."
+          ]
+        }"""
         json_result = json.loads(result)
-        return json_result["my total point"], result
+        return json_result["my_total_point"], result
