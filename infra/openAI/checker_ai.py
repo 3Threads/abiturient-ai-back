@@ -5,30 +5,38 @@ from openai import OpenAI
 
 from infra.constants import (
     ESSAY_EVALUATION_SCHEME,
-    AI_OUTPUT_EXAMPLE,
+    AI_OUTPUT_EXAMPLE_ESSAY,
     EMAIL_EVALUATION_SCHEME,
+    AI_OUTPUT_EXAMPLE_EMAIL,
 )
 
 
 @dataclass
 class CheckerAI:
-    ai_output_example = AI_OUTPUT_EXAMPLE
     email_evaluation_scheme = EMAIL_EVALUATION_SCHEME
     essay_evaluation_scheme = ESSAY_EVALUATION_SCHEME
 
     def __init__(self):
         self.client = OpenAI(api_key=(os.getenv("OPENAI_API_KEY")))
 
-    def check_email(self, email):
+    def check_email(self, email, advertisement):
+        prompt = (
+            self.email_evaluation_scheme
+            + "\n"
+            + AI_OUTPUT_EXAMPLE_EMAIL
+            + "This is advertisement: "
+            + advertisement
+            + "\n this is my email:\n"
+            + email,
+        )
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo-instruct",
+            model="gpt-4-0125-preview",
             messages=[
                 {
-                    "role": "user",
-                    "content": self.ai_output_example
-                    + self.email_evaluation_scheme
-                    + email,
-                }
+                    "role": "system",
+                    "content": "Please output valid json",
+                },
+                {"role": "user", "content": prompt[0]},
             ],
         )
         return response.choices[0].message.content
@@ -37,7 +45,7 @@ class CheckerAI:
         prompt = (
             self.essay_evaluation_scheme
             + "\n"
-            + self.ai_output_example
+            + AI_OUTPUT_EXAMPLE_ESSAY
             + "This is title: "
             + title
             + "\n this is my essay:\n"
@@ -50,11 +58,7 @@ class CheckerAI:
                     "role": "system",
                     "content": "Please output valid json",
                 },
-                {
-
-                    "role": "user",
-                    "content": prompt[0]
-                },
+                {"role": "user", "content": prompt[0]},
             ],
             response_format={"type": "json_object"},
         )
