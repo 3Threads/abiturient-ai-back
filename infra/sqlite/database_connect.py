@@ -56,36 +56,18 @@ class Database:
         taskDB.insert_task(
             1,
             "Read the questions (1-8) and find the answers to them in the paragraphs (A-F) of the text. Some paragraphs correspond to more than one question.",
-            """A. Harrods department store is one of the most famous shops in London with millions of people visiting each year. In the
-                                    beginning, though, Harrods was just a small shop in a single room in Stepney, East London. The shop sold only tea and groceries.
-                                    A young tea merchant, Charles Henry Harrod opened it in 1824 when he was only 25 years old. Besides himself, Charles Henry
-                                    Harrod employed two assistants and a messenger boy*. In 1849 the store moved to the Knightsbridge area of London and
-                                    expanded. Just two years later, the Great Exhibition of 1851 brought many visitors to Knightsbridge. This was a great change
-                                    because, as a result, Harrods attracted more customers and enjoyed great success.
-                                    10#B. Harrods steadily grew, and by 1873 the name ‘Harrod’s Store’ appeared at the front of the shop. Over several years the shop
-                                    got bigger and started selling fruit, vegetables and furniture. By 1883 Harrods had grown to six departments across five floors,
-                                    with over 200 assistants. It started to offer its customers everything from medicines and perfumes to clothing and food. The
-                                    department store became well known for its high-quality products and excellent personalised service. This way it managed to
-                                    reach out to wealthy customers who were willing to spend more money for better quality.#C. Then, on the night of December 7, 1883, the store unexpectedly caught fire. The entire building burnt down to the ground. But
-                                    instead of closing down, the store moved across the street and an architect was hired to build a newer, grander building. Despite
-                                    the tragedy, all Christmas orders were fulfilled and the store’s reputation was not only saved but also improved. The store reopened
-                                    the following year. In 1898, Harrods installed England’s first ‘moving stairs’ that we now call an escalator. The first escalator was
-                                    considered a frightening experience, so nervous customers were offered brandy - an alcoholic drink - at the top floor to calm them
-                                    down.#D. Ever since Harrods opened, its motto* has been ‘Omnia Omnibus Ubique’. This is a Latin phrase which means ‘All things, for
-                                    all people, everywhere.’ The motto reflects the store’s goal to provide everything a customer could want. Today, the store has 330
-                                    departments and customers can get everything from expensive jewellery and furniture, to paper and pens. On an average day,
-                                    approximately 100,000 people come to shop at Harrods. On peak days, especially during the Christmas season, this number can
-                                    jump up to 300,000. Harrods still has a strict dress code which means that the doorman won’t let people in if they are wearing the
-                                    wrong kind of clothes like torn jeans or beach shorts.
-                                    11#E. Harrods sells everything you can possibly imagine. The store even used to have a pet department, which first opened in 1917.
-                                    Harrods’ Pet Kingdom sold all kinds of animals – from domestic to exotic pets. In fact, it was the place where, if your wallet and
-                                    your home were large enough, you could buy an elephant, a tiger, a lion, a panther or even a camel as a household pet. In the
-                                    1970s, former US president Ronald Reagan bought a baby elephant called Gartie there.#F. Today, more than 5,000 people from over 50 different countries work for this luxury department store. However, the
-                                    staff are not just shop assistants. Harrods has its own hairdresser’s, doctor’s, bank, fire brigade, café, restaurants and more.
-                                    A huge team of people clean and look after the store. At night, Harrods is lit up by 12,000 light bulbs on the outside of the
-                                    building and 300 bulbs have to be changed every day. Now the Harrods name means the best of British quality, service
-                                    and style. And if the founder of the department store, Charles Henry Harrod, walked into the store today, he would be
-                                    welcomed with a cup of tea – the very thing that started it all.""",
+            """A. Leonardo da Vinci, born in 1452 in the heart of Italy, was a polymath whose areas of interest included invention, painting, sculpting, architecture, science, music, mathematics, engineering, literature, anatomy, geology, astronomy, botany, writing, history, and cartography. He has been variously called the father of palaeontology, ichnology, and architecture, and is widely considered one of the greatest painters of all time. Despite his many contributions in other areas, Leonardo is best known for his masterpieces: The Mona Lisa and The Last Supper, which are among the most influential works in the history of art.
+        10
+        # B. Leonardo’s early life was spent in the Vinci region of Italy where he received an informal education that included Latin, geometry, and mathematics. However, it was his apprenticeship under the artist Verrocchio in Florence that truly ignited his career in the arts. This period was crucial for Leonardo, as he was exposed to both the technical and creative aspects of being an artist. Additionally, his curiosity in the sciences began to shape his approach to art, leading him to study the human body, animals, and nature in great detail.
+        11
+        # C. Perhaps one of the most fascinating aspects of Leonardo’s work was his meticulous research and detailed journals. He filled thousands of pages with sketches, scientific diagrams, and his observations on topics ranging from the anatomy of humans and animals to the characteristics of light and shadow in painting. His studies in anatomy, in particular, were so advanced that they foreshadowed the discoveries of later scientists and medical practitioners.
+        12
+        # D. Despite the reverence we hold for Leonardo today, his contemporaries often saw him as a figure of contradiction and controversy. Known for his erratic work habits, he left many projects unfinished and was constantly juggling multiple endeavors. This aspect of his personality led to a somewhat tumultuous relationship with his patrons. Moreover, his pursuits in scientific research were often met with skepticism, as they challenged the prevailing norms and beliefs of the time.
+        13
+        # E. One of the lesser-known facets of Leonardo’s legacy is his contribution to engineering and inventions. He conceptualized flying machines, a type of armored vehicle, concentrated solar power, an adding machine, and the double hull. Albeit most of these were not constructed during his lifetime, they are considered remarkably ahead of their time. His inventions showcased his belief in the potential for human ingenuity to overcome the limitations of nature.
+        14
+        # F. In his later years, Leonardo left Italy to work in France upon the invitation of King Francis I. It was in France that Leonardo spent the last years of his life, continuing his work in art and science until his death in 1519. He was buried in the Chapel of Saint-Hubert in the castle of Amboise. Today, his legacy lives on, not only in his art and scientific contributions but also in the countless stories and legends that surround his life and personality.",
+        """,
             "",
             8,
             TITLING,
@@ -94,64 +76,29 @@ class Database:
             "english",
         )
 
-        titlingDB.insert_titling_question(
-            1, "explains how Harrods attracted rich customers?", ["B"]
-        )
-        titlingDB.insert_titling_question(
-            1,
-            "mentions a cultural event which had a positive effect on Harrods?",
-            ["A"],
-        )
-        titlingDB.insert_titling_question(
-            1, "states how customers should dress when going to Harrods?", ["D"]
-        )
-        titlingDB.insert_titling_question(
-            1, "gives the date when the Harrods building was totally destroyed? ", ["C"]
-        )
-        titlingDB.insert_titling_question(
-            1, "gives the number of people currently employed by Harrods?", ["F"]
-        )
-        titlingDB.insert_titling_question(
-            1, "mentions the staircase built to carry people between the floors?", ["C"]
-        )
-        titlingDB.insert_titling_question(
-            1, "could have the title: ‘How it all started’?", ["A"]
-        )
-        titlingDB.insert_titling_question(
-            1, "could have the title: ‘An extraordinary pet shop’?", ["E"]
-        )
+        titlingDB.insert_titling_question(1, "highlights Leonardo's contributions outside of painting?", ["C"])
+        titlingDB.insert_titling_question(1, "details Leonardo's formative years and education?", ["B"])
+        titlingDB.insert_titling_question(1, "describes the relationship with his contemporaries and patrons?", ["D"])
+        titlingDB.insert_titling_question(1, "mentions where Leonardo spent his final years?", ["F"])
+        titlingDB.insert_titling_question(1, "could have the title: ‘The Genius of Invention’?", ["E"])
+        titlingDB.insert_titling_question(1, "outlines the subjects Leonardo da Vinci studied?", ["C"])
+        titlingDB.insert_titling_question(1, "could have the title: ‘Early Life of a Polymath’?", ["B"])
+        titlingDB.insert_titling_question(1, "presents Leonardo's most famous artworks?", ["A"])
 
         taskDB.insert_task(
             2,
             "Read the text and the questions which follow. For each question mark the correct answer (A, B, C or D)",
-            """This is a true story told by a British-South African environmental activist, Lewis Pugh.
-                                    Lewis Pugh is a British-South African environmentalist who works hard to protect the oceans of the world. One way he
-                                    does this is by swimming! He goes on difficult swims in different parts of the world. People from various countries read
-                                    about Lewis Pugh and watch him swim. Pugh swam at the North Pole to warn people that some of the Arctic Sea ice was
-                                    disappearing. Another time he swam in a lake on Mount Everest to warn the governments about the effect of climate change
-                                    in the Himalayas. This is what Lewis Pugh says:
-                                    ‘Ocean water covers 70% of the earth. But human behaviour is having negative effects on the oceans. Ocean water is
-                                    becoming dirty and polluted. Many kinds of fish and sea animals are dying off. The Ross Sea in Antarctica is different, it’s
-                                    completely free of pollution. It contains many different animals and fish such as the Antarctic Toothfish, the Colossal
-                                    Squid* and the Emperor Penguin. Many of these animals and fish cannot be found anywhere else on the planet. I want to
-                                    gain global support for the Ross Sea so that it becomes a Protected Area. Because of that I decided to go on five symbolic
-                                    swims in Antarctica. My first Antarctic swim was near Campbell Island in New Zealand. I started to swim in the freezing
-                                    water. But after 200 metres, a sea lion attacked me. I had to stop swimming. And my team pulled me out of the water to
-                                    save me. My next swim was around Cape Adare. I completed a swim of 500 metres. The swim lasted ten minutes. As the
-                                    water temperature was minus 1.7 degrees, I was extremely cold when I got out of the sea. I had to take a hot shower for 50
-                                    minutes to get warm. It was a particularly hard swim, because I had to be careful with sharp ice. Needle-sharp ice was
-                                    cutting my fingers. I was in extreme pain after having swum about 300 metres. I have never felt pain like that before.
-                                    Nevertheless, my second swim was a great success.
-                                    13
-                                    As to my third swim, I had to cancel it because the wind was too strong. Then I travelled to the Bay of Whales in the Ross
-                                    Sea for my fourth swim. In this swim I was very proud of myself as no one had swum so far south before, but it was very
-                                    frightening. This area had many dangerous killer whales. But I successfully swam 350 metres in the freezing sea. I
-                                    remember my crew going out to see that there were no killer whales where I was going to swim. The water was so freezing
-                                    that it was extremely difficult to breathe. I had to concentrate and swim as quickly as possible. Four days later I had my
-                                    fifth and final swim. I swam 500 metres near the lonely Peter I Island, 450 kilometres from Antarctica. As I finished, two
-                                    humpback whales came to the surface of the water near me. This made me joyful. And it reminded me of the reason for
-                                    my dangerous swims. I have finished my swims, but I have not yet reached my goal. I will now travel around the world to
-                                    persuade the leaders of different countries to make the Ross Sea a Protected Area.’ """,
+            """The narrative revolves around Maria Silva, a Brazilian wildlife conservationist who is devoted to protecting the Amazon rainforest. Maria Silva is not 
+    just any conservationist; she has spent her life in the Amazon, working tirelessly to save its diverse ecosystems. She does this by monitoring wildlife, 
+    collaborating with local communities, and raising global awareness. Maria undertook a remarkable journey on foot across various parts of the Amazon to 
+    document and expose the impacts of deforestation. Here is what Maria Silva says: ‘The Amazon rainforest, often described as the planet's lungs, plays a 
+    crucial role in regulating the Earth's climate. However, it's under threat. Illegal logging, mining, and widespread agriculture are leading to unprecedented 
+    deforestation. During my journey, I encountered species that are on the brink of extinction and areas that were once lush with life now barren. I captured 
+    these changes in my documentary to show the world what's at stake. I believe in a future where the Amazon is recognized globally for its ecological worth and 
+    protected as such. After my treacherous travels, which included evading dangerous wildlife and navigating through nearly impassable terrain, I made it my 
+    mission to bring this issue to the forefront of international environmental discussions. The journey was fraught with challenges; at one point, I was lost for 
+    three days with no contact with my team, relying solely on natural navigation skills to find my way back. Yet, these experiences have only strengthened my 
+    resolve. It's time the world acknowledges and acts to save the Amazon, our natural treasure.’""",
             "",
             8,
             READING,
@@ -162,105 +109,105 @@ class Database:
 
         mcqDB.insert_multiple_choice_question(
             2,
-            "What is the story about?",
+            "What is Maria Silva known for?",
             [
-                "A. An Arctic scientist.",
-                "B. An environmentalist.",
-                "C. A swimming champion.",
-                "D. A person interested in oceanology.",
-            ],
-            "B",
-        )
-        mcqDB.insert_multiple_choice_question(
-            2,
-            "The author swam at the North Pole to warn people about",
-            [
-                "A. the problems on Mount Everest.",
-                "B. the climate change in the Himalayas.",
-                "C. the disappearance of some of the ice on the Arctic Sea.",
-                "D. what the government does to keep oceans clean.",
+                "A. Being an expert navigator.",
+                "B. Her documentary filmmaking.",
+                "C. Her dedication to the Amazon rainforest.",
+                "D. Her work in illegal mining.",
             ],
             "C",
         )
 
         mcqDB.insert_multiple_choice_question(
             2,
-            "What makes the Ross Sea in Antarctica special?",
+            "What primary issue does the Amazon face according to Maria?",
             [
-                "A. It is absolutely clean.",
-                "B. Its water is dirtiest in the world.",
-                "C. There are very few sea animals there.",
-                "D. The only fish found there is Toothfish.",
+                "A. Overpopulation.",
+                "B. Deforestation.",
+                "C. Water pollution.",
+                "D. Industrialization.",
+            ],
+            "B",
+        )
+
+        mcqDB.insert_multiple_choice_question(
+            2,
+            "Why is the Amazon often called the planet's lungs?",
+            [
+                "A. It's the source of much of the world's oxygen.",
+                "B. It has a vast number of animal species.",
+                "C. It's the largest rainforest on Earth.",
+                "D. It absorbs a significant amount of carbon dioxide.",
             ],
             "A",
         )
 
         mcqDB.insert_multiple_choice_question(
             2,
-            "Why wasn’t the author able to finish his first Antarctic swim?",
+            "What challenge did Maria face during her journey?",
             [
-                "A. The water was too cold.",
-                "B. 200 meters was too hard to cover.",
-                "C. His team thought he was drowning.",
-                "D. A sea animal hit him aggressively.",
-            ],
-            "D",
-        )
-
-        mcqDB.insert_multiple_choice_question(
-            2,
-            "The author considered his swim around Cape Adare especially hard because",
-            [
-                "A. he had to cover a long distance.",
-                "B. he suffered from terrible pain.",
-                "C. he had to stay in the water for a long time.",
-                "D. no hot water could warm him after the swim.",
+                "A. She was injured by wildlife.",
+                "B. She got lost for several days.",
+                "C. She ran out of supplies.",
+                "D. Her filming equipment was stolen.",
             ],
             "B",
         )
 
         mcqDB.insert_multiple_choice_question(
             2,
-            "The author was happy with his achievement in swimming very far south in his",
-            ["A. second swim.", "B. third swim.", "C. fourth swim.", "D. fifth swim."],
+            "Maria’s ultimate goal is to",
+            [
+                "A. Become a renowned explorer.",
+                "B. Turn the Amazon into a tourist destination.",
+                "C. Have the Amazon recognized for its environmental importance.",
+                "D. Publish a series of books on her adventures.",
+            ],
             "C",
         )
 
         mcqDB.insert_multiple_choice_question(
             2,
-            "How did the author feel when he saw two whales very close to him?",
-            ["A. Scared.", "B. Cheerful.", "C. Worried.", "D. Disappointed."],
+            "Maria’s journey was mainly characterized by",
+            [
+                "A. Excitement and discovery.",
+                "B. Constant fear and trepidation.",
+                "C. Challenges and determination.",
+                "D. Solitude and contemplation.",
+            ],
+            "C",
+        )
+
+        mcqDB.insert_multiple_choice_question(
+            2,
+            "How did Maria react to being lost?",
+            [
+                "A. She waited for rescue.",
+                "B. She used her skills to navigate back.",
+                "C. She built a signal fire.",
+                "D. She contacted her team with a satellite phone.",
+            ],
             "B",
         )
 
         mcqDB.insert_multiple_choice_question(
             2,
-            "Which of the following would be the best title for the text?",
+            "What would be the most fitting title for the text?",
             [
-                "A. Pollution-free areas",
-                "B. How to save ocean animals",
-                "C. Sportsmen against climate change",
-                "D. Symbolic swims to protect the environment",
+                "A. The Dangers of the Amazon",
+                "B. The Amazon’s Hidden Beauty",
+                "C. A Journey to Save the Amazon",
+                "D. Adventures of an Amazon Explorer",
             ],
-            "D",
+            "C",
         )
 
         taskDB.insert_task(
             3,
-            "Read the text and fill the gaps with the words given. Use each word only once. Two words are extra.",
-            """One of the world’s most geographically isolated countries, the Republic of Maldives, also called the Maldives, is situated in the
-                                    north-central Indian Ocean. It …… (1) of a group of about 1,200 small …… (2) and sandy beaches. The people who live in
-                                    the Maldives are often …… (3) Maldivians or Maldive Islanders. Due to its geographic …… (4) near the equator, the Maldives
-                                    enjoys exceptionally …… (5) temperatures practically throughout the whole year. The Maldives has the smallest population in
-                                    Asia. More than one-quarter of Maldivians live in the city Male. The official …… (6) of the Maldives is Dhivehi, which is believed
-                                    to originate from the Sri Lankan language Sinhala. Although Maldivians use Dhivehi for most of their daily communications, the
-                                    English language is becoming more and more …… (7) as the most common second language. The official religion of the Maldives
-                                    is Sunni Islam, and according to the Maldivian Constitution, only Muslims may be …… (8) of the country. In the early 1980s, the
-                                    Maldives was one of the world's 20 …… (9) countries because of its low-income; nowadays, it is a middle-income country where
-                                    only tourism and fishing are the major industries. Tourist agencies bring tourists to the country and take them directly to resorts
-                                    and private beaches. The tourists do not …… (10) with the local population who dislike alcoholic …… (11) and immodest
-                                    clothing. Scientists …… (12) that because of the global warming, the sea levels may rise and the islands may disappear completely.""",
-            "called (A)#citizens(B)#communicate (C)#consists (D)#drinks (E)#guide (F)#islands (G)#landscapes (H)#language (I)#location (J)#poorest (K)#popular (L)#warm (M)#worry (N)",
+            "Read the text and complete the sentences with the correct form of the verbs in brackets. Use each verb only once. Two verbs are extra.",
+            '''Switzerland is widely recognized for its impressive mountains, clock-making traditions, and mouth-watering chocolates. Nestled in the heart of Europe, this country …… (1) (maintain) its neutrality for centuries. Many international organizations …… (2) (find) their home in Geneva, including the United Nations and the Red Cross. The Swiss …… (3) (possess) a strong sense of national identity, despite having four official languages: German, French, Italian, and Romansh. Tourism …… (4) (flourish) year-round; in winter, the Alpine ski resorts …… (5) (attract) sports enthusiasts from all over the globe, while in summer, its pristine lakes …… (6) (offer) refreshing escapes. Remarkably, Switzerland …… (7) (be) home to some of the world’s most innovative companies, especially in the pharmaceutical and financial sectors. The country’s education system …… (8) (recognize) as one of the best, enabling Swiss students to …… (9) (excel) in various fields. Although Switzerland …… (10) (vote) regularly on issues through referendums, the Swiss often …… (11) (pride) themselves on their direct democracy system. Environmental protection …… (12) (remain) a priority for the Swiss, with numerous initiatives to conserve natural beauty and wildlife.''',
+            "attract #be #excel #find #flourish #maintain #offer #possess #pride #recognize #remain #vote #restore #shape ",
             12,
             FILLING,
             2021,
@@ -268,18 +215,18 @@ class Database:
             "english",
         )
 
-        fill_questionDB.insert_fill_text_question(3, 1, "D")
-        fill_questionDB.insert_fill_text_question(3, 2, "G")
-        fill_questionDB.insert_fill_text_question(3, 3, "A")
-        fill_questionDB.insert_fill_text_question(3, 4, "J")
-        fill_questionDB.insert_fill_text_question(3, 5, "M")
-        fill_questionDB.insert_fill_text_question(3, 6, "I")
-        fill_questionDB.insert_fill_text_question(3, 7, "L")
-        fill_questionDB.insert_fill_text_question(3, 8, "B")
-        fill_questionDB.insert_fill_text_question(3, 9, "K")
-        fill_questionDB.insert_fill_text_question(3, 10, "C")
-        fill_questionDB.insert_fill_text_question(3, 11, "E")
-        fill_questionDB.insert_fill_text_question(3, 12, "N")
+        fill_questionDB.insert_fill_text_question(3, 1, "F")
+        fill_questionDB.insert_fill_text_question(3, 2, "D")
+        fill_questionDB.insert_fill_text_question(3, 3, "H")
+        fill_questionDB.insert_fill_text_question(3, 4, "E")
+        fill_questionDB.insert_fill_text_question(3, 5, "A")
+        fill_questionDB.insert_fill_text_question(3, 6, "G")
+        fill_questionDB.insert_fill_text_question(3, 7, "B")
+        fill_questionDB.insert_fill_text_question(3, 8, "J")
+        fill_questionDB.insert_fill_text_question(3, 9, "C")
+        fill_questionDB.insert_fill_text_question(3, 10, "L")
+        fill_questionDB.insert_fill_text_question(3, 11, "I")
+        fill_questionDB.insert_fill_text_question(3, 12, "K")
 
         taskDB.insert_task(
             4,
@@ -342,5 +289,6 @@ class Database:
             "english",
         )
 
-        taskDB.insert_task(6, "Read the essay task and write between 120-150 words.", '''Some people think that it’s very hard to be a doctor nowadays. Do you agree or disagree with this opinion? State your opinion and support it with reasons and examples.''',
+        taskDB.insert_task(6, "Read the essay task and write between 120-150 words.",
+                           '''Some people think that it’s very hard to be a doctor nowadays. Do you agree or disagree with this opinion? State your opinion and support it with reasons and examples.''',
                            "", 16, ESSAY, 2021, 1, "english")

@@ -32,7 +32,7 @@ def init_app() -> FastAPI:
 
     if os.getenv("WALLET_REPOSITORY_KIND", "memory") == "sqlite":
         db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))
-        # db.initial()    # Uncomment this if you want to create initial db
+        db.initial()    # Uncomment this if you want to create initial db
         app.state.tasks = TasksDatabase(db.con, db.cur)
         app.state.subscribes = SubscribesDataBase(db.con, db.cur)
         app.state.users = UsersDatabase(db.con, db.cur, app.state.subscribes)
