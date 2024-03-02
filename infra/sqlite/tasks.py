@@ -10,7 +10,7 @@ from core.question import (
     EssayQuestion,
 )
 from core.task import Task, MatchParagraphsTask, ListeningTask, ReadingTask, FillTextTask, EssayTask, EmailTask, \
-    FillWithArticlesTask
+    FillTextWithoutOptionsTask
 
 
 @dataclass
@@ -63,7 +63,7 @@ class TasksDatabase:
                     for id, t_id, question_answer in questions_info:
                         question = FillWithArticlesQuestion(question_answer.split('#'))
                         questions.append(question)
-                    task_1 = FillWithArticlesTask(questions, task_text)
+                    task_1 = FillTextWithoutOptionsTask(questions, task_text)
                 case "email":
                     email_question = EmailQuestion()
                     task_1 = EmailTask([email_question], task_text)

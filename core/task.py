@@ -56,7 +56,7 @@ class FillTextTask(Task):
 
 
 @dataclass
-class FillWithArticlesTask(Task):
+class FillTextWithoutOptionsTask(Task):
     text_title: str
     text: str
 

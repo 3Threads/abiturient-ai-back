@@ -15,7 +15,7 @@ from core.task import (
     MatchParagraphsTask,
     EmailTask,
     EssayTask,
-    FillWithArticlesTask,
+    FillTextWithoutOptionsTask,
     FillTextTask,
 )
 
@@ -108,7 +108,7 @@ class TasksInMemory:
             "Read the text and fill the gaps with one of the following: article, preposition, conjunction or relative pronoun. Insert only ONE word. Do not copy the extra words from the text on the answer sheet.",
             12,
             "articles",
-            FillWithArticlesTask(
+            FillTextWithoutOptionsTask(
                 fill_with_articles_questions,
                 "An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. An invention is the discovery or creation of a new material, a new process or a new use of existing material. Inventions almost always cause change. Sometimes great inventions are ideas that can change ….. (1) world. ",
             ),
