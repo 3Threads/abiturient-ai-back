@@ -44,6 +44,7 @@ class MatchParagraphsTask(Task):
 
 @dataclass
 class ReadingTask(Task):
+    text_title: str
     text: str
 
 
@@ -69,7 +70,9 @@ class ConversationTask(Task):
 
 @dataclass
 class EmailTask(Task):
+    text_title: str
     text: str
+    askingInformation: list[str]
 
 
 @dataclass
