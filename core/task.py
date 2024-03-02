@@ -6,7 +6,12 @@ from core.question import QuestionType
 
 
 @dataclass
-class TaskType(ABC):
+class Task(ABC):
+    task_id: int
+    task_number: int
+    task_title: str
+    point: int
+    task_type: str
     questions: list[QuestionType]
 
     def get_questions(self) -> list[QuestionType]:
@@ -26,48 +31,49 @@ class TaskType(ABC):
 
 
 @dataclass
-class ListeningTask(TaskType):
-    pass
+class ListeningTask(Task):
+    address_to_audio: str
 
 
 @dataclass
-class TitlingTask(TaskType):
+class MatchParagraphsTask(Task):
+    text_title: str
     paragraphs: list[str]
 
 
 @dataclass
-class ReadAndWriteTask(TaskType):
+class ReadingTask(Task):
     text: str
 
 
 @dataclass
-class FillTextTask(TaskType):
+class FillTextTask(Task):
+    text_title: str
     text: str
     options: list[str]
 
 
 @dataclass
-class FillWithArticlesTask(TaskType):
+class FillWithArticlesTask(Task):
+    text_title: str
     text: str
 
 
 @dataclass
-class EmailTask(TaskType):
+class ConversationTask(Task):
+    text_title: str
+    text: str
+    dialogue: list[str]
+
+
+@dataclass
+class EmailTask(Task):
     text: str
 
 
 @dataclass
-class EssayTask(TaskType):
+class EssayTask(Task):
     title: str
-
-
-@dataclass
-class Task:
-    task_number: int
-    task_title: str
-    point: int
-    task_type: str
-    task: TaskType
 
 
 class TasksRepository(Protocol):

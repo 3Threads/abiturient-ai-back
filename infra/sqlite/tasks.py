@@ -3,13 +3,13 @@ from sqlite3 import Connection, Cursor
 
 from core.question import (
     MultipleChoiceQuestion,
-    TitlingQuestion,
+    MatchParagraphsQuestion,
     FillTextQuestion,
     FillWithArticlesQuestion,
     EmailQuestion,
     EssayQuestion,
 )
-from core.task import Task, TitlingTask, ListeningTask, ReadAndWriteTask, FillTextTask, EssayTask, EmailTask, \
+from core.task import Task, MatchParagraphsTask, ListeningTask, ReadingTask, FillTextTask, EssayTask, EmailTask, \
     FillWithArticlesTask
 
 
@@ -42,16 +42,16 @@ class TasksDatabase:
                 case "titling":
                     questions_info = self.get_questions_info("TitlingQuestion", id)
                     for id, t_id, paragraph, correct_answers in questions_info:
-                        question = TitlingQuestion(paragraph, correct_answers)
+                        question = MatchParagraphsQuestion(paragraph, correct_answers)
                         questions.append(question)
-                    task_1 = TitlingTask(questions, task_text.split('#'))
+                    task_1 = MatchParagraphsTask(questions, task_text.split('#'))
                 case "reading":
                     questions_info = self.get_questions_info("MultipleChoiceQuestion", id)
                     for id, t_id, question_text, question_options, question_answer in questions_info:
                         question = MultipleChoiceQuestion(question_text, question_options.split('#'),
                                                           question_answer)
                         questions.append(question)
-                    task_1 = ReadAndWriteTask(questions, task_text)
+                    task_1 = ReadingTask(questions, task_text)
                 case "filling":
                     questions_info = self.get_questions_info("FillTextQuestion", id)
                     for id,t_id,  question_answer in questions_info:

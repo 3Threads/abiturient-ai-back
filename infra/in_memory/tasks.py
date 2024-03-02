@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from core.question import (
     MultipleChoiceQuestion,
-    TitlingQuestion,
+    MatchParagraphsQuestion,
     EmailQuestion,
     EssayQuestion,
     FillTextQuestion,
@@ -11,8 +11,8 @@ from core.question import (
 from core.task import (
     Task,
     ListeningTask,
-    ReadAndWriteTask,
-    TitlingTask,
+    ReadingTask,
+    MatchParagraphsTask,
     EmailTask,
     EssayTask,
     FillWithArticlesTask,
@@ -32,7 +32,7 @@ class TasksInMemory:
         )
         titling_questions = []
         for i in range(6):
-            titling_questions.append(TitlingQuestion(f"{i} paragraph", ["A", "B"]))
+            titling_questions.append(MatchParagraphsQuestion(f"{i} paragraph", ["A", "B"]))
 
         task = Task(
             1,
@@ -57,7 +57,7 @@ class TasksInMemory:
             "Read the questions (1-8) and find the answers to them in the paragraphs (A-F) of the text. Some paragraphs correspond to more than one question",
             8,
             "titling",
-            TitlingTask(
+            MatchParagraphsTask(
                 titling_questions,
                 [
                     "1. explains how Harrods attracted rich customers?",
@@ -78,7 +78,7 @@ class TasksInMemory:
             "Read the text and the questions which follow. For each question mark the correct answer (A, B, C or D).",
             8,
             "reading",
-            ReadAndWriteTask([multiple_choice_question] * 8, "The long text here"),
+            ReadingTask([multiple_choice_question] * 8, "The long text here"),
         )
         tasks.append(task)
 
