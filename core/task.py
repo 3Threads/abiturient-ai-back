@@ -33,6 +33,7 @@ class Task(ABC):
 @dataclass
 class ListeningTask(Task):
     address_to_audio: str
+    text_num: int = 1
 
 
 @dataclass
