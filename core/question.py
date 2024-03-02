@@ -23,7 +23,7 @@ class MultipleChoiceQuestion(QuestionType):
 
 
 @dataclass
-class MatchParagraphsQuestion(QuestionType):
+class OpenQuestion(QuestionType):
     question: str
     correct_answer: str
 

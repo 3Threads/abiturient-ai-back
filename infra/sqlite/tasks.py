@@ -3,7 +3,7 @@ from sqlite3 import Connection, Cursor
 
 from core.question import (
     MultipleChoiceQuestion,
-    MatchParagraphsQuestion,
+    OpenQuestion,
     FillTextQuestion,
     FillWithArticlesQuestion,
     EmailQuestion,
@@ -42,7 +42,7 @@ class TasksDatabase:
                 case "titling":
                     questions_info = self.get_questions_info("TitlingQuestion", id)
                     for id, t_id, paragraph, correct_answers in questions_info:
-                        question = MatchParagraphsQuestion(paragraph, correct_answers)
+                        question = OpenQuestion(paragraph, correct_answers)
                         questions.append(question)
                     task_1 = MatchParagraphsTask(questions, task_text.split('#'))
                 case "reading":

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from sqlite3 import Connection, Cursor
 
-from core.question import FillTextQuestion, MultipleChoiceQuestion, MatchParagraphsQuestion
+from core.question import FillTextQuestion, MultipleChoiceQuestion, OpenQuestion
 
 
 @dataclass
@@ -49,7 +49,7 @@ class TitlingQuestionDataBase:
         self.cur.execute("INSERT INTO TitlingQuestion(TASK_ID, TITLE, CORRECT_ANSWERS) VALUES (?, ?, ?)", (task_id, title, answer))
         self.con.commit()
 
-    def get_titling_questions(self, task_id: int, question_id: int) -> list[MatchParagraphsQuestion]:
+    def get_titling_questions(self, task_id: int, question_id: int) -> list[OpenQuestion]:
         return self.cur.execute("SELECT * FROM TitlingQuestion WHERE TASK_ID = ? AND QUESTION_ID = ?", (task_id, question_id)).fetchall()
 
 

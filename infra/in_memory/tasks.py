@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from core.question import (
     MultipleChoiceQuestion,
-    MatchParagraphsQuestion,
+    OpenQuestion,
     EmailQuestion,
     EssayQuestion,
     FillTextQuestion,
@@ -32,7 +32,7 @@ class TasksInMemory:
         )
         titling_questions = []
         for i in range(6):
-            titling_questions.append(MatchParagraphsQuestion(f"{i} paragraph", ["A", "B"]))
+            titling_questions.append(OpenQuestion(f"{i} paragraph", ["A", "B"]))
 
         task = Task(
             1,
