@@ -8,7 +8,8 @@ from core.task import (
     FillTextTask,
     FillTextWithoutOptionsTask, Task, ConversationTask, EmailTask, EssayTask,
 )
-from infra.constants import DELIMITER
+from infra.constants import DELIMITER, LISTENING, MATCHING, READING, FILLING, FILLING_WITHOUT_OPTIONS, CONVERSATION, \
+    EMAIL, ESSAY
 
 
 @dataclass
@@ -420,7 +421,36 @@ class TasksDatabase:
             essay_title=essay[1],
         )
 
-    def get_task(self, exam_id: int) -> list[Task]:
-        return self.cur.execute(
+    def get_tasks(self, exam_id: int) -> list[Task]:
+        fetched = self.cur.execute(
             "SELECT * FROM Tasks WHERE EXAM_ID = ?", (exam_id,)
         ).fetchall()
+        tasks = []
+        for task in fetched:
+            task_id = task[0]
+            task_type = task[4]
+            if task_type == LISTENING:
+                listening = self.get_listening_task(task_id)
+                tasks.append(listening)
+            elif task_type == MATCHING:
+                matching = self.get_match_paragraphs_task(task_id)
+                tasks.append(matching)
+            elif task_type == READING:
+                reading = self.get_reading_task(task_id)
+                tasks.append(reading)
+            elif task_type == FILLING:
+                filling = self.get_fill_text_task(task_id)
+                tasks.append(filling)
+            elif task_type == FILLING_WITHOUT_OPTIONS:
+                filling_without_options = self.get_fill_text_without_options_task(task_id)
+                tasks.append(filling_without_options)
+            elif task_type == CONVERSATION:
+                conversation = self.get_conversation_task(task_id)
+                tasks.append(conversation)
+            elif task_type == EMAIL:
+                email = self.get_email_task(task_id)
+                tasks.append(email)
+            elif task_type == ESSAY:
+                essay = self.get_essay_task(task_id)
+                tasks.append(essay)
+        return tasks

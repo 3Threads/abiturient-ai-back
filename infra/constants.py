@@ -17,6 +17,7 @@ MATCHING = "matching"
 READING = "reading"
 FILLING = "filling"
 FILLING_WITHOUT_OPTIONS = "filling_without_options"
+CONVERSATION = "conversation"
 EMAIL = "email"
 ESSAY = "essay"
 
