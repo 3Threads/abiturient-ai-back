@@ -364,7 +364,7 @@ class TasksDatabase:
         asking_info = asking_information[0]
         for i in range(len(asking_information)):
             if i != 0:
-                asking_info = asking_information + f"{DELIMITER}{asking_information[i]}"
+                asking_info = asking_info + f"{DELIMITER}{asking_information[i]}"
         self.cur.execute(
             "INSERT INTO EmailTask(TASK_ID, TEXT_TITLE, TEXT, ASKING_INFORMATION) VALUES (?, ?, ?, ?)",
             (task_id, text_title, text, asking_info),
