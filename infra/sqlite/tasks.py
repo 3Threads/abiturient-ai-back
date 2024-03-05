@@ -359,15 +359,15 @@ class TasksDatabase:
         )
 
     def insert_email_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                          text_title: str, text: str, asking_informations: list[str]) -> int:
+                          text_title: str, text: str, asking_information: list[str]) -> int:
         task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
-        asking_information = asking_informations[0]
-        for i in range(len(asking_informations)):
+        asking_info = asking_information[0]
+        for i in range(len(asking_information)):
             if i != 0:
-                asking_information = asking_information + f"{DELIMITER}{asking_informations[i]}"
+                asking_info = asking_information + f"{DELIMITER}{asking_information[i]}"
         self.cur.execute(
             "INSERT INTO EmailTask(TASK_ID, TEXT_TITLE, TEXT, ASKING_INFORMATION) VALUES (?, ?, ?, ?)",
-            (task_id, text_title, text, asking_information),
+            (task_id, text_title, text, asking_info),
         )
         self.con.commit()
         return task_id
@@ -389,7 +389,7 @@ class TasksDatabase:
             questions=[],
             text_title=email[1],
             text=email[2],
-            asking_information=email[3],
+            asking_information=email[3].split(DELIMITER),
         )
 
     def insert_essay_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
