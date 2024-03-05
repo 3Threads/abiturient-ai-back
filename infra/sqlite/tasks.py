@@ -22,6 +22,166 @@ from core.task import (
 
 
 @dataclass
+class ListeningTaskDatabase:
+    con: Connection
+    cur: Cursor
+
+    def insert_listening_task(self, task_id: int, address_to_audio: str):
+        self.cur.execute(
+            "INSERT INTO ListeningTask(TASK_ID, ADDRESS_TO_AUDIO) VALUES (?, ?)",
+            (task_id, address_to_audio),
+        )
+        self.con.commit()
+
+    def get_listening_task(self, task_id: int) -> ListeningTask:
+        return self.cur.execute(
+            "SELECT * FROM ListeningTask WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+
+
+@dataclass
+class MatchParagraphsTaskDatabase:
+    con: Connection
+    cur: Cursor
+
+    def insert_match_paragraphs_task(
+        self, task_id: int, text_title: str, paragraphs: list[str]
+    ):
+        paragraph = paragraphs[0]
+        for i in range(len(paragraphs)):
+            if i != 0:
+                paragraph = paragraph + f"#{paragraphs[i]}"
+        self.cur.execute(
+            "INSERT INTO MatchParagraphsTask(TASK_ID, TEXT_TITLE, PARAGRAPHS) VALUES (?, ?, ?)",
+            (task_id, text_title, paragraph),
+        )
+        self.con.commit()
+
+    def get_match_paragraphs_task(self, task_id: int) -> MatchParagraphsTask:
+        return self.cur.execute(
+            "SELECT * FROM MatchParagraphsTask WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+
+
+@dataclass
+class ReadingTaskDatabase:
+    con: Connection
+    cur: Cursor
+
+    def insert_reading_task(self, task_id: int, text_title: str, text: str):
+        self.cur.execute(
+            "INSERT INTO ReadingTask(TASK_ID, TEXT_TITLE, TEXT) VALUES (?, ?, ?)",
+            (task_id, text_title, text),
+        )
+        self.con.commit()
+
+    def get_reading_task(self, task_id: int) -> ReadingTask:
+        return self.cur.execute(
+            "SELECT * FROM ReadingTask WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+
+
+@dataclass
+class FillTextTaskDatabase:
+    con: Connection
+    cur: Cursor
+
+    def insert_fill_text_task(
+        self, task_id: int, text_title: str, text: str, options: list[str]
+    ):
+        option = options[0]
+        for i in range(len(options)):
+            if i != 0:
+                option = option + f"#{options[i]}"
+        self.cur.execute(
+            "INSERT INTO FillTextTask(TASK_ID, TEXT_TITLE, TEXT, OPTIONS) VALUES (?, ?, ?, ?)",
+            (task_id, text_title, text, option),
+        )
+        self.con.commit()
+
+    def get_fill_text_task(self, task_id: int) -> FillTextTask:
+        return self.cur.execute(
+            "SELECT * FROM FillTextTask WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+
+
+@dataclass
+class FillTextWithoutOptionsTaskDatabase:
+    con: Connection
+    cur: Cursor
+
+    def insert_fill_text_without_options_task(
+        self, task_id: int, text_title: str, text: str
+    ):
+        self.cur.execute(
+            "INSERT INTO FillTextWithoutOptionsTask(TASK_ID, TEXT_TITLE, TEXT) VALUES (?, ?, ?)",
+            (task_id, text_title, text),
+        )
+        self.con.commit()
+
+    def get_fill_text_without_options_task(
+        self, task_id: int
+    ) -> FillTextWithoutOptionsTask:
+        return self.cur.execute(
+            "SELECT * FROM FillTextWithoutOptionsTask WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+
+
+@dataclass
+class ConversationTask:
+    con: Connection
+    cur: Cursor
+
+    def insert_conversation_task(self, task_id: int, text_title: str, text: str):
+        self.cur.execute(
+            "INSERT INTO ConversationTask(TASK_ID, TEXT_TITLE, TEXT) VALUES (?, ?, ?)",
+            (task_id, text_title, text),
+        )
+        self.con.commit()
+
+    def get_conversation_task(self, task_id: int) -> str:
+        return self.cur.execute(
+            "SELECT * FROM ConversationTask WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+
+
+@dataclass
+class EmailTask:
+    con: Connection
+    cur: Cursor
+
+    def insert_email_task(self, task_id: int, text_title: str, text: str):
+        self.cur.execute(
+            "INSERT INTO EmailTask(TASK_ID, TEXT_TITLE, TEXT) VALUES (?, ?, ?)",
+            (task_id, text_title, text),
+        )
+        self.con.commit()
+
+    def get_email_task(self, task_id: int) -> str:
+        return self.cur.execute(
+            "SELECT * FROM EmailTask WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+
+
+@dataclass
+class EssayTask:
+    con: Connection
+    cur: Cursor
+
+    def insert_essay_task(self, task_id: int, text_title: str, text: str):
+        self.cur.execute(
+            "INSERT INTO EssayTask(TASK_ID, TEXT_TITLE, TEXT) VALUES (?, ?, ?)",
+            (task_id, text_title, text),
+        )
+        self.con.commit()
+
+    def get_essay_task(self, task_id: int) -> str:
+        return self.cur.execute(
+            "SELECT * FROM EssayTask WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+
+
+@dataclass
 class TasksDatabase:
     con: Connection
     cur: Cursor
