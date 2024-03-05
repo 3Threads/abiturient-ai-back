@@ -21,6 +21,7 @@ ARTICLES = "articles"
 EMAIL = "email"
 ESSAY = "essay"
 
+DELIMITER = "#"
 
 AI_OUTPUT_EXAMPLE_ESSAY = """Follow this example for the output:
 {

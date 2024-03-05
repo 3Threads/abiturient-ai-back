@@ -8,6 +8,7 @@ from core.task import (
     FillTextTask,
     FillTextWithoutOptionsTask, Task, ConversationTask, EmailTask, EssayTask,
 )
+from infra.constants import DELIMITER
 
 
 @dataclass
@@ -41,7 +42,7 @@ class TasksDatabase:
     #                 for id, t_id, paragraph, correct_answers in questions_info:
     #                     question = OpenQuestion(paragraph, correct_answers)
     #                     questions.append(question)
-    #                 task_1 = MatchParagraphsTask(questions, task_text.split("#"))
+    #                 task_1 = MatchParagraphsTask(questions, task_text.split(DELIMITER))
     #             case "reading":
     #                 questions_info = self.get_questions_info(
     #                     "MultipleChoiceQuestion", id
@@ -54,7 +55,7 @@ class TasksDatabase:
     #                         question_answer,
     #                 ) in questions_info:
     #                     question = MultipleChoiceQuestion(
-    #                         question_text, question_options.split("#"), question_answer
+    #                         question_text, question_options.split(DELIMITER), question_answer
     #                     )
     #                     questions.append(question)
     #                 task_1 = ReadingTask(questions, task_text)
@@ -63,13 +64,13 @@ class TasksDatabase:
     #                 for id, t_id, question_answer in questions_info:
     #                     question = FillTextQuestion(question_answer)
     #                     questions.append(question)
-    #                 task_1 = FillTextTask(questions, task_text, task_options.split("#"))
+    #                 task_1 = FillTextTask(questions, task_text, task_options.split(DELIMITER))
     #             case "articles":
     #                 questions_info = self.get_questions_info(
     #                     "FillWithArticlesQuestion", id
     #                 )
     #                 for id, t_id, question_answer in questions_info:
-    #                     question = FillWithArticlesQuestion(question_answer.split("#"))
+    #                     question = FillWithArticlesQuestion(question_answer.split(DELIMITER))
     #                     questions.append(question)
     #                 task_1 = FillTextWithoutOptionsTask(questions, task_text)
     #             case "email":
@@ -90,7 +91,7 @@ class TasksDatabase:
     #                         question_answer,
     #                 ) in questions_info:
     #                     question = MultipleChoiceQuestion(
-    #                         question_text, question_options.split("#"), question_answer
+    #                         question_text, question_options.split(DELIMITER), question_answer
     #                     )
     #                     questions.append(question)
     #                 task_1 = ListeningTask(questions)
@@ -196,7 +197,7 @@ class TasksDatabase:
         paragraph = paragraphs[0]
         for i in range(len(paragraphs)):
             if i != 0:
-                paragraph = paragraph + f"#{paragraphs[i]}"
+                paragraph = paragraph + f"{DELIMITER}{paragraphs[i]}"
         task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
         self.cur.execute(
             "INSERT INTO MatchParagraphsTask(TASK_ID, TEXT_TITLE, PARAGRAPHS) VALUES (?, ?, ?)",
@@ -221,7 +222,7 @@ class TasksDatabase:
             exam_id=task[5],
             questions=[],
             text_title=matchParagraphs[1],
-            paragraphs=matchParagraphs[2].split("#"),
+            paragraphs=matchParagraphs[2].split(DELIMITER),
         )
 
     def insert_reading_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
@@ -260,7 +261,7 @@ class TasksDatabase:
         option = options[0]
         for i in range(len(options)):
             if i != 0:
-                option = option + f"#{options[i]}"
+                option = option + f"{DELIMITER}{options[i]}"
         task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
         self.cur.execute(
             "INSERT INTO FillTextTask(TASK_ID, TEXT_TITLE, TEXT, OPTIONS) VALUES (?, ?, ?, ?)",
@@ -286,7 +287,7 @@ class TasksDatabase:
             questions=[],
             text_title=fillText[1],
             text=fillText[2],
-            options=fillText[3].split("#"),
+            options=fillText[3].split(DELIMITER),
         )
 
     def insert_fill_text_without_options_task(
@@ -323,11 +324,15 @@ class TasksDatabase:
         )
 
     def insert_conversation_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                                 text_title: str, text: str, dialogues: str) -> int:
+                                 text_title: str, text: str, dialogues: list[str]) -> int:
         task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
+        dialogue = dialogues[0]
+        for i in range(len(dialogues)):
+            if i != 0:
+                dialogue = dialogue + f"{DELIMITER}{dialogues[i]}"
         self.cur.execute(
             "INSERT INTO ConversationTask(TASK_ID, TEXT_TITLE, TEXT, DIALOGUES) VALUES (?, ?, ?, ?)",
-            (task_id, text_title, text, dialogues),
+            (task_id, text_title, text, dialogue),
         )
         self.con.commit()
         return task_id
@@ -336,6 +341,7 @@ class TasksDatabase:
         conversation = self.cur.execute(
             "SELECT * FROM ConversationTask WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+
         task = self.cur.execute(
             "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
@@ -349,7 +355,7 @@ class TasksDatabase:
             questions=[],
             text_title=conversation[1],
             text=conversation[2],
-            dialogue=conversation[3].split("#"),
+            dialogue=conversation[3].split(DELIMITER),
         )
 
     def insert_email_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
