@@ -28,7 +28,7 @@ class Database:
             sql = sql_file.read()
         self.cur.executescript(sql)
         self.con.commit()
-        self.fill_table()
+        # self.fill_table()
 
     def close_database(self) -> None:
         self.con.close()

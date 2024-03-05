@@ -6,7 +6,15 @@ DROP TABLE IF EXISTS MultipleChoiceQuestion;
 DROP TABLE IF EXISTS FillWithArticlesQuestion;
 DROP TABLE IF EXISTS TitlingQuestion;
 DROP TABLE IF EXISTS FillTextQuestion;
-
+DROP TABLE if exists ReadingTask;
+DROP TABLE IF EXISTS MatchParagraphsTask;
+DROP TABLE IF EXISTS ListeningTask;
+DROP TABLE IF EXISTS FillTextTask;
+DROP TABLE IF EXISTS FillTextWithoutOptionsTask;
+DROP TABLE IF EXISTS ConversationTask;
+DROP TABLE IF EXISTS EmailTask;
+DROP TABLE IF EXISTS EssayTask;
+DROP TABLE IF EXISTS Exams;
 
 CREATE TABLE Subscribes
 (
@@ -31,10 +39,10 @@ CREATE TABLE Users
 ---------------------------------------------------------------
 CREATE TABLE Exams
 (
-    EXAM_ID   INTEGER PRIMARY KEY AUTOINCREMENT,
-    YEAR      INTEGER NOT NULL,
-    VARIANT   INTEGER NOT NULL,
-    SUBJECT   TEXT    NOT NULL
+    EXAM_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    YEAR    INTEGER NOT NULL,
+    VARIANT INTEGER NOT NULL,
+    SUBJECT TEXT    NOT NULL
 );
 
 CREATE TABLE Tasks
@@ -42,7 +50,7 @@ CREATE TABLE Tasks
     TASK_ID     INTEGER PRIMARY KEY AUTOINCREMENT,
     TASK_NUMBER INTEGER NOT NULL,
     TASK_TITLE  TEXT    NOT NULL,
-    POINT       INTEGER NOT NULL,
+    TASK_POINT  INTEGER NOT NULL,
     TASK_TYPE   TEXT    NOT NULL,
     EXAM_ID     INTEGER NOT NULL,
     FOREIGN KEY (EXAM_ID) REFERENCES Exams (EXAM_ID)
@@ -50,68 +58,66 @@ CREATE TABLE Tasks
 
 CREATE TABLE ListeningTask
 (
-    task_id          INTEGER PRIMARY KEY,
-    address_to_audio TEXT,
-    text_num         INTEGER,
-    FOREIGN KEY (task_id) REFERENCES Tasks (task_id)
+    TASK_ID          INTEGER PRIMARY KEY,
+    ADDRESS_TO_AUDIO TEXT,
+    TEXT_NUM         INTEGER default 1,
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID)
 );
-
 CREATE TABLE MatchParagraphsTask
 (
-    task_id    INTEGER PRIMARY KEY,
-    text_title TEXT,
-    paragraphs TEXT,
-    FOREIGN KEY (task_id) REFERENCES Tasks (task_id)
+    TASK_ID    INTEGER PRIMARY KEY,
+    TEXT_TITLE TEXT,
+    PARAGRAPHS TEXT,
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID)
 );
-
 CREATE TABLE ReadingTask
 (
-    task_id    INTEGER PRIMARY KEY,
-    text_title TEXT,
-    text       TEXT,
-    FOREIGN KEY (task_id) REFERENCES Tasks (task_id)
+    TASK_ID    INTEGER PRIMARY KEY,
+    TEXT_TITLE TEXT,
+    TEXT       TEXT,
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID)
 );
 
 CREATE TABLE FillTextTask
 (
-    task_id    INTEGER PRIMARY KEY,
-    text_title TEXT,
-    text       TEXT,
-    options    TEXT,
-    FOREIGN KEY (task_id) REFERENCES Tasks (task_id)
+    TASK_ID    INTEGER PRIMARY KEY,
+    TEXT_TITLE TEXT,
+    TEXT       TEXT,
+    OPTIONS    TEXT,
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID)
 );
 
 CREATE TABLE FillTextWithoutOptionsTask
 (
-    task_id    INTEGER PRIMARY KEY,
-    text_title TEXT,
-    text       TEXT,
-    FOREIGN KEY (task_id) REFERENCES Tasks (task_id)
+    TASK_ID    INTEGER PRIMARY KEY,
+    TEXT_TITLE TEXT,
+    TEXT       TEXT,
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID)
 );
 
 CREATE TABLE ConversationTask
 (
-    task_id    INTEGER PRIMARY KEY,
-    text_title TEXT,
-    text       TEXT,
-    dialogues  TEXT,
-    FOREIGN KEY (task_id) REFERENCES Tasks (task_id)
+    TASK_ID    INTEGER PRIMARY KEY,
+    TEXT_TITLE TEXT,
+    TEXT       TEXT,
+    DIALOGUES  TEXT,
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID)
 );
 
 CREATE TABLE EmailTask
 (
-    task_id            INTEGER PRIMARY KEY,
-    text_title         TEXT,
-    text               TEXT,
-    asking_information TEXT,
-    FOREIGN KEY (task_id) REFERENCES Tasks (task_id)
+    TASK_ID            INTEGER PRIMARY KEY,
+    TEXT_TITLE         TEXT,
+    TEXT               TEXT,
+    ASKING_INFORMATION TEXT,
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID)
 );
 
 CREATE TABLE EssayTask
 (
-    task_id     INTEGER PRIMARY KEY,
-    essay_title TEXT,
-    FOREIGN KEY (task_id) REFERENCES Tasks (task_id)
+    TASK_ID     INTEGER PRIMARY KEY,
+    ESSAY_TITLE TEXT,
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID)
 );
 
 ---------------------------------------------------------------
@@ -123,7 +129,7 @@ CREATE TABLE MultipleChoiceQuestion
     QUESTION_TEXT    TEXT,
     QUESTION_OPTIONS TEXT,
     QUESTION_ANSWER  TEXT,
-    FOREIGN KEY (TASK_ID) REFERENCES Tasks (ID) ON DELETE CASCADE
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID) ON DELETE CASCADE
 );
 
 
@@ -132,7 +138,7 @@ CREATE TABLE FillWithArticlesQuestion
     QUESTION_ID    INTEGER PRIMARY KEY AUTOINCREMENT,
     TASK_ID        INTEGER NOT NULL,
     CORRECT_ANSWER TEXT,
-    FOREIGN KEY (TASK_ID) REFERENCES Tasks (ID) ON DELETE CASCADE
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID) ON DELETE CASCADE
 );
 
 
@@ -142,7 +148,7 @@ CREATE TABLE TitlingQuestion
     TASK_ID         INTEGER NOT NULL,
     TITLE           TEXT,
     CORRECT_ANSWERS TEXT,
-    FOREIGN KEY (TASK_ID) REFERENCES Tasks (ID) ON DELETE CASCADE
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID) ON DELETE CASCADE
 );
 
 
@@ -151,5 +157,5 @@ CREATE TABLE FillTextQuestion
     QUESTION_ID    INTEGER PRIMARY KEY AUTOINCREMENT,
     TASK_ID        INTEGER NOT NULL,
     CORRECT_ANSWER TEXT,
-    FOREIGN KEY (TASK_ID) REFERENCES Tasks (ID) ON DELETE CASCADE
+    FOREIGN KEY (TASK_ID) REFERENCES Tasks (TASK_ID) ON DELETE CASCADE
 );
