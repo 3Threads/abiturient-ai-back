@@ -232,10 +232,10 @@ class TasksDatabase:
         ).fetchone()
 
     def insert_conversation_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                                 task_id: int, text_title: str, text: str):
+                                 task_id: int, text_title: str, text: str, dialogues: str):
         self.cur.execute(
-            "INSERT INTO ConversationTask(TASK_ID, TEXT_TITLE, TEXT) VALUES (?, ?, ?)",
-            (task_id, text_title, text),
+            "INSERT INTO ConversationTask(TASK_ID, TEXT_TITLE, TEXT, DIALOGUES) VALUES (?, ?, ?, ?)",
+            (task_id, text_title, text, dialogues),
         )
         self.con.commit()
 
@@ -245,10 +245,10 @@ class TasksDatabase:
         ).fetchone()
 
     def insert_email_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                          task_id: int, text_title: str, text: str):
+                          task_id: int, text_title: str, text: str, asking_information: str):
         self.cur.execute(
-            "INSERT INTO EmailTask(TASK_ID, TEXT_TITLE, TEXT) VALUES (?, ?, ?)",
-            (task_id, text_title, text),
+            "INSERT INTO EmailTask(TASK_ID, TEXT_TITLE, TEXT, ASKING_INFORMATION) VALUES (?, ?, ?, ?)",
+            (task_id, text_title, text, asking_information),
         )
         self.con.commit()
 
@@ -258,10 +258,10 @@ class TasksDatabase:
         ).fetchone()
 
     def insert_essay_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                          task_id: int, text_title: str, text: str):
+                          task_id: int, essay_title: str):
         self.cur.execute(
-            "INSERT INTO EssayTask(TASK_ID, TEXT_TITLE, TEXT) VALUES (?, ?, ?)",
-            (task_id, text_title, text),
+            "INSERT INTO EssayTask(TASK_ID, ESSAY_TITLE) VALUES (?, ?)",
+            (task_id, essay_title),
         )
         self.con.commit()
 
