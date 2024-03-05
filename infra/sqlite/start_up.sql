@@ -29,6 +29,13 @@ CREATE TABLE Users
 );
 
 ---------------------------------------------------------------
+CREATE TABLE Exams
+(
+    EXAM_ID   INTEGER PRIMARY KEY AUTOINCREMENT,
+    YEAR      INTEGER NOT NULL,
+    VARIANT   INTEGER NOT NULL,
+    SUBJECT   TEXT    NOT NULL
+);
 
 CREATE TABLE Tasks
 (
@@ -37,9 +44,8 @@ CREATE TABLE Tasks
     TASK_TITLE  TEXT    NOT NULL,
     POINT       INTEGER NOT NULL,
     TASK_TYPE   TEXT    NOT NULL,
-    YEAR        INTEGER NOT NULL,
-    VARIANT     INTEGER NOT NULL,
-    SUBJECT     TEXT    NOT NULL
+    EXAM_ID     INTEGER NOT NULL,
+    FOREIGN KEY (EXAM_ID) REFERENCES Exams (EXAM_ID)
 );
 
 CREATE TABLE ListeningTask
