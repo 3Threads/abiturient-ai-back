@@ -149,8 +149,19 @@ class TasksDatabase:
     #     return results
 
     # - - - - - - - - - - - - - - - - - - -
+    def insert_into_tasks(self, task_number: int, task_title: str, task_point: int, task_type: str,
+                          exam_id: int) -> int:
+        self.cur.execute(
+            "INSERT INTO Tasks(TASK_NUMBER, TASK_TITLE, TASK_POINT, TASK_TYPE, EXAM_ID) VALUES (?, ?, ?, ?, ?)",
+            (task_number, task_title, task_point, task_type, exam_id),
+        )
+        last_row_id = self.cur.lastrowid
+        self.con.commit()
+        return last_row_id
+
     def insert_listening_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                              task_id: int, address_to_audio: str, text_num: int):
+                              address_to_audio: str, text_num: int):
+        task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
         self.cur.execute(
             "INSERT INTO ListeningTask(TASK_ID, ADDRESS_TO_AUDIO, TEXT_NUM) VALUES (?, ?, ?)",
             (task_id, address_to_audio, text_num),
@@ -164,13 +175,13 @@ class TasksDatabase:
         ).fetchone()
 
     def insert_match_paragraphs_task(
-            self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int, task_id: int,
-            text_title: str, paragraphs: list[str]
+            self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,             text_title: str, paragraphs: list[str]
     ):
         paragraph = paragraphs[0]
         for i in range(len(paragraphs)):
             if i != 0:
                 paragraph = paragraph + f"#{paragraphs[i]}"
+        task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
         self.cur.execute(
             "INSERT INTO MatchParagraphsTask(TASK_ID, TEXT_TITLE, PARAGRAPHS) VALUES (?, ?, ?)",
             (task_id, text_title, paragraph),
@@ -183,7 +194,8 @@ class TasksDatabase:
         ).fetchone()
 
     def insert_reading_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                            task_id: int, text_title: str, text: str):
+                            text_title: str, text: str):
+        task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
         self.cur.execute(
             "INSERT INTO ReadingTask(TASK_ID, TEXT_TITLE, TEXT) VALUES (?, ?, ?)",
             (task_id, text_title, text),
@@ -197,12 +209,13 @@ class TasksDatabase:
 
     def insert_fill_text_task(
             self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-            task_id: int, text_title: str, text: str, options: list[str]
+            text_title: str, text: str, options: list[str]
     ):
         option = options[0]
         for i in range(len(options)):
             if i != 0:
                 option = option + f"#{options[i]}"
+        task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
         self.cur.execute(
             "INSERT INTO FillTextTask(TASK_ID, TEXT_TITLE, TEXT, OPTIONS) VALUES (?, ?, ?, ?)",
             (task_id, text_title, text, option),
@@ -216,8 +229,9 @@ class TasksDatabase:
 
     def insert_fill_text_without_options_task(
             self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-            task_id: int, text_title: str, text: str
+            text_title: str, text: str
     ):
+        task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
         self.cur.execute(
             "INSERT INTO FillTextWithoutOptionsTask(TASK_ID, TEXT_TITLE, TEXT) VALUES (?, ?, ?)",
             (task_id, text_title, text),
@@ -232,7 +246,8 @@ class TasksDatabase:
         ).fetchone()
 
     def insert_conversation_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                                 task_id: int, text_title: str, text: str, dialogues: str):
+                                text_title: str, text: str, dialogues: str):
+        task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
         self.cur.execute(
             "INSERT INTO ConversationTask(TASK_ID, TEXT_TITLE, TEXT, DIALOGUES) VALUES (?, ?, ?, ?)",
             (task_id, text_title, text, dialogues),
@@ -245,7 +260,8 @@ class TasksDatabase:
         ).fetchone()
 
     def insert_email_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                          task_id: int, text_title: str, text: str, asking_information: str):
+                        text_title: str, text: str, asking_information: str):
+        task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
         self.cur.execute(
             "INSERT INTO EmailTask(TASK_ID, TEXT_TITLE, TEXT, ASKING_INFORMATION) VALUES (?, ?, ?, ?)",
             (task_id, text_title, text, asking_information),
@@ -258,7 +274,8 @@ class TasksDatabase:
         ).fetchone()
 
     def insert_essay_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                          task_id: int, essay_title: str):
+                        essay_title: str):
+        task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
         self.cur.execute(
             "INSERT INTO EssayTask(TASK_ID, ESSAY_TITLE) VALUES (?, ?)",
             (task_id, essay_title),
