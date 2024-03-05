@@ -15,9 +15,8 @@ ADMIN_API_KEY = "b42b6a94c86a51f016e0ee11d140de6824b81d2cadcea443370d0c49ce25178
 LISTENING = "listening"
 MATCHING = "matching"
 READING = "reading"
-TITLING = "titling"
 FILLING = "filling"
-ARTICLES = "articles"
+FILLING_WITHOUT_OPTIONS = "filling_without_options"
 EMAIL = "email"
 ESSAY = "essay"
 
