@@ -6,7 +6,7 @@ from core.task import (
     ListeningTask,
     ReadingTask,
     FillTextTask,
-    FillTextWithoutOptionsTask, Task,
+    FillTextWithoutOptionsTask, Task, ConversationTask, EmailTask, EssayTask,
 )
 
 
@@ -235,9 +235,23 @@ class TasksDatabase:
         return task_id
 
     def get_reading_task(self, task_id: int) -> ReadingTask:
-        return self.cur.execute(
+        reading = self.cur.execute(
             "SELECT * FROM ReadingTask WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        task = self.cur.execute(
+            "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+        return ReadingTask(
+            task_id=task[0],
+            task_number=task[1],
+            task_title=task[2],
+            task_point=task[3],
+            task_type=task[4],
+            exam_id=task[5],
+            questions=[],
+            text_title=reading[1],
+            text=reading[2],
+        )
 
     def insert_fill_text_task(
             self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
@@ -256,9 +270,24 @@ class TasksDatabase:
         return task_id
 
     def get_fill_text_task(self, task_id: int) -> FillTextTask:
-        return self.cur.execute(
+        fillText = self.cur.execute(
             "SELECT * FROM FillTextTask WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        task = self.cur.execute(
+            "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+        return FillTextTask(
+            task_id=task[0],
+            task_number=task[1],
+            task_title=task[2],
+            task_point=task[3],
+            task_type=task[4],
+            exam_id=task[5],
+            questions=[],
+            text_title=fillText[1],
+            text=fillText[2],
+            options=fillText[3].split("#"),
+        )
 
     def insert_fill_text_without_options_task(
             self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
@@ -275,9 +304,23 @@ class TasksDatabase:
     def get_fill_text_without_options_task(
             self, task_id: int
     ) -> FillTextWithoutOptionsTask:
-        return self.cur.execute(
+        fillTextWithoutOptions = self.cur.execute(
             "SELECT * FROM FillTextWithoutOptionsTask WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        task = self.cur.execute(
+            "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+        return FillTextWithoutOptionsTask(
+            task_id=task[0],
+            task_number=task[1],
+            task_title=task[2],
+            task_point=task[3],
+            task_type=task[4],
+            exam_id=task[5],
+            questions=[],
+            text_title=fillTextWithoutOptions[1],
+            text=fillTextWithoutOptions[2],
+        )
 
     def insert_conversation_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
                                  text_title: str, text: str, dialogues: str) -> int:
@@ -289,10 +332,25 @@ class TasksDatabase:
         self.con.commit()
         return task_id
 
-    def get_conversation_task(self, task_id: int) -> str:
-        return self.cur.execute(
+    def get_conversation_task(self, task_id: int) -> ConversationTask:
+        conversation = self.cur.execute(
             "SELECT * FROM ConversationTask WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        task = self.cur.execute(
+            "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+        return ConversationTask(
+            task_id=task[0],
+            task_number=task[1],
+            task_title=task[2],
+            task_point=task[3],
+            task_type=task[4],
+            exam_id=task[5],
+            questions=[],
+            text_title=conversation[1],
+            text=conversation[2],
+            dialogue=conversation[3].split("#"),
+        )
 
     def insert_email_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
                           text_title: str, text: str, asking_information: str) -> int:
@@ -304,10 +362,25 @@ class TasksDatabase:
         self.con.commit()
         return task_id
 
-    def get_email_task(self, task_id: int) -> str:
-        return self.cur.execute(
+    def get_email_task(self, task_id: int) -> EmailTask:
+        email = self.cur.execute(
             "SELECT * FROM EmailTask WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        task = self.cur.execute(
+            "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+        return EmailTask(
+            task_id=task[0],
+            task_number=task[1],
+            task_title=task[2],
+            task_point=task[3],
+            task_type=task[4],
+            exam_id=task[5],
+            questions=[],
+            text_title=email[1],
+            text=email[2],
+            asking_information=email[3],
+        )
 
     def insert_essay_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
                           essay_title: str) -> int:
@@ -319,10 +392,23 @@ class TasksDatabase:
         self.con.commit()
         return task_id
 
-    def get_essay_task(self, task_id: int) -> str:
-        return self.cur.execute(
+    def get_essay_task(self, task_id: int) -> EssayTask:
+        essay = self.cur.execute(
             "SELECT * FROM EssayTask WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        task = self.cur.execute(
+            "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+        return EssayTask(
+            task_id=task[0],
+            task_number=task[1],
+            task_title=task[2],
+            task_point=task[3],
+            task_type=task[4],
+            exam_id=task[5],
+            questions=[],
+            essay_title=essay[1],
+        )
 
     def get_task(self, exam_id: int) -> list[Task]:
         return self.cur.execute(

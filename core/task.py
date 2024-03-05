@@ -73,12 +73,12 @@ class ConversationTask(Task):
 class EmailTask(Task):
     text_title: str
     text: str
-    askingInformation: list[str]
+    asking_information: list[str]
 
 
 @dataclass
 class EssayTask(Task):
-    title: str
+    essay_title: str
 
 
 class TasksRepository(Protocol):
