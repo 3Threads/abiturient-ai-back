@@ -359,8 +359,12 @@ class TasksDatabase:
         )
 
     def insert_email_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                          text_title: str, text: str, asking_information: str) -> int:
+                          text_title: str, text: str, asking_informations: list[str]) -> int:
         task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
+        asking_information = asking_informations[0]
+        for i in range(len(asking_informations)):
+            if i != 0:
+                asking_information = asking_information + f"{DELIMITER}{asking_informations[i]}"
         self.cur.execute(
             "INSERT INTO EmailTask(TASK_ID, TEXT_TITLE, TEXT, ASKING_INFORMATION) VALUES (?, ?, ?, ?)",
             (task_id, text_title, text, asking_information),
