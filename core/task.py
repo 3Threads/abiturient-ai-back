@@ -10,9 +10,10 @@ class Task(ABC):
     task_id: int
     task_number: int
     task_title: str
-    point: int
+    task_point: int
     task_type: str
     questions: list[QuestionType]
+    exam_id: int
 
     def get_questions(self) -> list[QuestionType]:
         return self.questions

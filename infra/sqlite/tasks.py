@@ -170,9 +170,22 @@ class TasksDatabase:
         return task_id
 
     def get_listening_task(self, task_id: int) -> ListeningTask:
-        return self.cur.execute(
+        listening = self.cur.execute(
             "SELECT * FROM ListeningTask WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        task = self.cur.execute(
+            "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
+        ).fetchone()
+
+        return ListeningTask(
+            task_number=task[0],
+            task_title=task[1],
+            task_point=task[2],
+            task_type=task[3],
+            exam_id=task[4],
+            address_to_audio=listening[1],
+            text_num=listening[2],
+        )
 
     def insert_match_paragraphs_task(
             self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int, text_title: str,
@@ -191,9 +204,11 @@ class TasksDatabase:
         return task_id
 
     def get_match_paragraphs_task(self, task_id: int) -> MatchParagraphsTask:
-        return self.cur.execute(
+
+        matchParadraphs = self.cur.execute(
             "SELECT * FROM MatchParagraphsTask WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+
 
     def insert_reading_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
                             text_title: str, text: str) -> int:
