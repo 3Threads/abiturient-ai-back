@@ -22,8 +22,9 @@ EMAIL = "email"
 ESSAY = "essay"
 
 MULTIPLE_CHOICE_QUESTION = "MultipleChoiceQuestion"
-FILL_WITH_ARTICLES_QUESTION = "FillWithArticlesQuestion"
-TITLING_QUESTION = "TitlingQuestion"
+OPEN_QUESTION = "FillWithArticlesQuestion"
+EMAIL_QUESTION = "EmailQuestion"
+ESSAY_QUESTION = "EssayQuestion"
 
 DELIMITER = "#"
 

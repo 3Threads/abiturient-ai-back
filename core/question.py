@@ -35,6 +35,9 @@ class OpenQuestion(Question):
 
 @dataclass
 class EmailQuestion(Question):
+    text_title: str
+    text: str
+    asking_information: list[str]
     def check_answer(self, user_answer: str) -> tuple[int, str]:
         #         email = """Dear Sir/Madam,
         # I read your advertisement in the online newspaper. I got interested in it. But there is not enough information about some details in the advertisement. So, I am writing to enquire about some points. First of all, I would like to know where the workshop will take place exactly, so please inform me about it. Then, I would be grateful if you could tell me by whom the workshop will be conducted. And last, can you also tell me when the workshop will start exactly. I look forward to your reply.
@@ -78,6 +81,7 @@ class EmailQuestion(Question):
 
 @dataclass
 class EssayQuestion(Question):
+    essay_title: str
     def check_answer(self, user_answer: str) -> tuple[int, str]:
         #         essay = """Nowadays most 17-18 years old children have to choose what to study at the university. While thinking of a future profession they tend to decline an opportunity of becoming a doctor after realizing how hard the studying will be. So, I completely agree with this issue and I will strengthen my opinion with appropriate arguments.
         #     First of all, I want to emphasize that the length of studying course at a medical university is much longer than at others. In Georgia the difference is approximately 2 years. Secondly, for me it is almost impossible to imagine the difficulty of studying anatomy because it is certain how complicated a human's body is.
