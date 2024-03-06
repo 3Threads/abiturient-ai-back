@@ -9,11 +9,7 @@ from core.question import (
     EssayQuestion,
 )
 from infra.constants import (
-    MULTIPLE_CHOICE_QUESTION,
     DELIMITER,
-    OPEN_QUESTION,
-    EMAIL_QUESTION,
-    ESSAY_QUESTION,
 )
 
 
@@ -34,19 +30,17 @@ class QuestionsDatabase:
         ).fetchall()
         questions_list = []
         for question in questions:
-            if question[1] == MULTIPLE_CHOICE_QUESTION:
-                multiple_choice_question = self.get_multiple_choice_question(
-                    question[0]
-                )
+            multiple_choice_question = self.get_multiple_choice_question(question[0])
+            if multiple_choice_question is not None:
                 questions_list.append(multiple_choice_question)
-            elif question[1] == OPEN_QUESTION:
-                open_question = self.get_open_question(question[0])
+            open_question = self.get_open_question(question[0])
+            if open_question is not None:
                 questions_list.append(open_question)
-            elif question[1] == EMAIL_QUESTION:
-                email_question = self.get_email_question(question[0])
+            email_question = self.get_email_question(question[0])
+            if email_question is not None:
                 questions_list.append(email_question)
-            elif question[1] == ESSAY_QUESTION:
-                essay_question = self.get_essay_question(question[0])
+            essay_question = self.get_essay_question(question[0])
+            if essay_question is not None:
                 questions_list.append(essay_question)
         return questions_list
 
@@ -70,11 +64,15 @@ class QuestionsDatabase:
         self.con.commit()
         return question_id
 
-    def get_multiple_choice_question(self, question_id: int) -> MultipleChoiceQuestion:
+    def get_multiple_choice_question(
+        self, question_id: int
+    ) -> MultipleChoiceQuestion | None:
         multiple_choice_question = self.cur.execute(
             "SELECT * FROM MultipleChoiceQuestion WHERE QUESTION_ID = ?",
             (question_id,),
         ).fetchone()
+        if multiple_choice_question is None:
+            return None
         options = multiple_choice_question[1].split(DELIMITER)
         return MultipleChoiceQuestion(
             options, multiple_choice_question[2], multiple_choice_question[3]
@@ -96,11 +94,13 @@ class QuestionsDatabase:
         self.con.commit()
         return question_id
 
-    def get_open_question(self, question_id: int) -> OpenQuestion:
+    def get_open_question(self, question_id: int) -> OpenQuestion | None:
         open_question = self.cur.execute(
             "SELECT * FROM OpenQuestion WHERE QUESTION_ID = ?",
             (question_id,),
         ).fetchone()
+        if open_question is None:
+            return None
         answers = open_question[1].split(DELIMITER)
         return OpenQuestion(answers, open_question[2])
 
@@ -120,11 +120,13 @@ class QuestionsDatabase:
         self.con.commit()
         return question_id
 
-    def get_email_question(self, question_id: int) -> EmailQuestion:
+    def get_email_question(self, question_id: int) -> EmailQuestion | None:
         email_question = self.cur.execute(
             "SELECT * FROM EmailQuestion WHERE QUESTION_ID = ?",
             (question_id,),
         ).fetchone()
+        if email_question is None:
+            return None
         asking_information = email_question[3].split(DELIMITER)
         return EmailQuestion(email_question[1], email_question[2], asking_information)
 
@@ -137,9 +139,11 @@ class QuestionsDatabase:
         self.con.commit()
         return question_id
 
-    def get_essay_question(self, question_id: int) -> EssayQuestion:
+    def get_essay_question(self, question_id: int) -> EssayQuestion | None:
         essay_question = self.cur.execute(
             "SELECT * FROM EssayQuestion WHERE QUESTION_ID = ?",
             (question_id,),
         ).fetchone()
+        if essay_question is None:
+            return None
         return EssayQuestion(essay_question[1])
