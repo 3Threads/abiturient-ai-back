@@ -1,6 +1,7 @@
 import os
 from dataclasses import dataclass
 
+from dotenv import load_dotenv
 from openai import OpenAI
 
 from infra.constants import (
@@ -17,6 +18,7 @@ class CheckerAI:
     essay_evaluation_scheme = ESSAY_EVALUATION_SCHEME
 
     def __init__(self):
+        load_dotenv()
         self.client = OpenAI(api_key=(os.getenv("OPENAI_API_KEY")))
 
     def check_email(self, email, advertisement):
@@ -62,5 +64,14 @@ class CheckerAI:
                 {"role": "user", "content": prompt[0]},
             ],
             response_format={"type": "json_object"},
+        )
+        return response.choices[0].message.content
+
+    def get_response_by_prompt(self, prompt):
+        response = self.client.chat.completions.create(
+            model="gpt-4-0125-preview",
+            messages=[
+                {"role": "user", "content": prompt},
+            ],
         )
         return response.choices[0].message.content
