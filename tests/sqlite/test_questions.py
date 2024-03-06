@@ -5,12 +5,8 @@ import pytest
 from infra.constants import (
     SQL_FILE_TEST,
     LISTENING,
-    MATCHING,
     READING,
-    FILLING,
-    FILLING_WITHOUT_OPTIONS,
     EMAIL,
-    CONVERSATION,
     ESSAY,
 )
 from infra.sqlite.database_connect import Database
