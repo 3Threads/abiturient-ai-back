@@ -10,6 +10,7 @@ from core.task import (
 )
 from infra.constants import DELIMITER, LISTENING, MATCHING, READING, FILLING, FILLING_WITHOUT_OPTIONS, CONVERSATION, \
     EMAIL, ESSAY
+from infra.sqlite.questions import QuestionsDatabase
 
 
 @dataclass
@@ -67,7 +68,7 @@ class TasksDatabase:
         task = self.cur.execute(
             "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
-
+        questions = QuestionsDatabase(self.con, self.cur).get_questions(task_id)
         return ListeningTask(
             task_id=task[0],
             task_number=task[1],
@@ -75,7 +76,7 @@ class TasksDatabase:
             task_point=task[3],
             task_type=task[4],
             exam_id=task[5],
-            questions=[],
+            questions=questions,
             address_to_audio=listening[1],
             text_num=listening[2],
         )
@@ -103,6 +104,7 @@ class TasksDatabase:
         task = self.cur.execute(
             "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        questions = QuestionsDatabase(self.con, self.cur).get_questions(task_id)
         return MatchParagraphsTask(
             task_id=task[0],
             task_number=task[1],
@@ -110,7 +112,7 @@ class TasksDatabase:
             task_point=task[3],
             task_type=task[4],
             exam_id=task[5],
-            questions=[],
+            questions=questions,
             text_title=matchParagraphs[1],
             paragraphs=matchParagraphs[2].split(DELIMITER),
         )
@@ -132,6 +134,7 @@ class TasksDatabase:
         task = self.cur.execute(
             "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        questions = QuestionsDatabase(self.con, self.cur).get_questions(task_id)
         return ReadingTask(
             task_id=task[0],
             task_number=task[1],
@@ -139,7 +142,7 @@ class TasksDatabase:
             task_point=task[3],
             task_type=task[4],
             exam_id=task[5],
-            questions=[],
+            questions=questions,
             text_title=reading[1],
             text=reading[2],
         )
@@ -167,6 +170,7 @@ class TasksDatabase:
         task = self.cur.execute(
             "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        questions = QuestionsDatabase(self.con, self.cur).get_questions(task_id)
         return FillTextTask(
             task_id=task[0],
             task_number=task[1],
@@ -174,7 +178,7 @@ class TasksDatabase:
             task_point=task[3],
             task_type=task[4],
             exam_id=task[5],
-            questions=[],
+            questions=questions,
             text_title=fillText[1],
             text=fillText[2],
             options=fillText[3].split(DELIMITER),
@@ -201,6 +205,7 @@ class TasksDatabase:
         task = self.cur.execute(
             "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        questions = QuestionsDatabase(self.con, self.cur).get_questions(task_id)
         return FillTextWithoutOptionsTask(
             task_id=task[0],
             task_number=task[1],
@@ -208,7 +213,7 @@ class TasksDatabase:
             task_point=task[3],
             task_type=task[4],
             exam_id=task[5],
-            questions=[],
+            questions=questions,
             text_title=fillTextWithoutOptions[1],
             text=fillTextWithoutOptions[2],
         )
@@ -235,6 +240,7 @@ class TasksDatabase:
         task = self.cur.execute(
             "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        questions = QuestionsDatabase(self.con, self.cur).get_questions(task_id)
         return ConversationTask(
             task_id=task[0],
             task_number=task[1],
@@ -242,7 +248,7 @@ class TasksDatabase:
             task_point=task[3],
             task_type=task[4],
             exam_id=task[5],
-            questions=[],
+            questions=questions,
             text_title=conversation[1],
             text=conversation[2],
             dialogue=conversation[3].split(DELIMITER),
@@ -257,6 +263,7 @@ class TasksDatabase:
         task = self.cur.execute(
             "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        questions = QuestionsDatabase(self.con, self.cur).get_questions(task_id)
         return EmailTask(
             task_id=task[0],
             task_number=task[1],
@@ -264,7 +271,7 @@ class TasksDatabase:
             task_point=task[3],
             task_type=task[4],
             exam_id=task[5],
-            questions=[],
+            questions=questions,
         )
 
     def insert_essay_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
@@ -276,6 +283,7 @@ class TasksDatabase:
         task = self.cur.execute(
             "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
+        questions = QuestionsDatabase(self.con, self.cur).get_questions(task_id)
         return EssayTask(
             task_id=task[0],
             task_number=task[1],
@@ -283,7 +291,7 @@ class TasksDatabase:
             task_point=task[3],
             task_type=task[4],
             exam_id=task[5],
-            questions=[],
+            questions=questions,
         )
 
     def get_tasks(self, exam_id: int) -> list[Task]:
