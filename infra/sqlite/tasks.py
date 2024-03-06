@@ -249,23 +249,11 @@ class TasksDatabase:
         )
 
     def insert_email_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                          text_title: str, text: str, asking_information: list[str]) -> int:
+                          ) -> int:
         task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
-        asking_info = asking_information[0]
-        for i in range(len(asking_information)):
-            if i != 0:
-                asking_info = asking_info + f"{DELIMITER}{asking_information[i]}"
-        self.cur.execute(
-            "INSERT INTO EmailTask(TASK_ID, TEXT_TITLE, TEXT, ASKING_INFORMATION) VALUES (?, ?, ?, ?)",
-            (task_id, text_title, text, asking_info),
-        )
-        self.con.commit()
         return task_id
 
     def get_email_task(self, task_id: int) -> EmailTask:
-        email = self.cur.execute(
-            "SELECT * FROM EmailTask WHERE TASK_ID = ?", (task_id,)
-        ).fetchone()
         task = self.cur.execute(
             "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
@@ -277,25 +265,14 @@ class TasksDatabase:
             task_type=task[4],
             exam_id=task[5],
             questions=[],
-            text_title=email[1],
-            text=email[2],
-            asking_information=email[3].split(DELIMITER),
         )
 
     def insert_essay_task(self, task_number: int, task_title: str, task_point: int, task_type: str, exam_id: int,
-                          essay_title: str) -> int:
+                          ) -> int:
         task_id = self.insert_into_tasks(task_number, task_title, task_point, task_type, exam_id)
-        self.cur.execute(
-            "INSERT INTO EssayTask(TASK_ID, ESSAY_TITLE) VALUES (?, ?)",
-            (task_id, essay_title),
-        )
-        self.con.commit()
         return task_id
 
     def get_essay_task(self, task_id: int) -> EssayTask:
-        essay = self.cur.execute(
-            "SELECT * FROM EssayTask WHERE TASK_ID = ?", (task_id,)
-        ).fetchone()
         task = self.cur.execute(
             "SELECT * FROM Tasks WHERE TASK_ID = ?", (task_id,)
         ).fetchone()
@@ -307,7 +284,6 @@ class TasksDatabase:
             task_type=task[4],
             exam_id=task[5],
             questions=[],
-            essay_title=essay[1],
         )
 
     def get_tasks(self, exam_id: int) -> list[Task]:

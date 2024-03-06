@@ -12,43 +12,22 @@ class QuestionType(Protocol):
 
 @dataclass
 class MultipleChoiceQuestion(QuestionType):
-    options: list[str]
-    correct_option: str
-    question: str = field(default_factory=str)
+    question_options: list[str]
+    question_answer: str
+    question_text: str = field(default_factory=str)
 
     def check_answer(self, user_answer: str) -> tuple[int, str]:
-        if user_answer == self.correct_option:
-            return 1, self.correct_option
-        return 0, self.correct_option
+        if user_answer == self.question_answer:
+            return 1, self.question_answer
+        return 0, self.question_answer
 
 
 @dataclass
 class OpenQuestion(QuestionType):
-    question: str
-    correct_answer: str
-
-    def check_answer(self, user_answer: str) -> tuple[int, str]:
-        if user_answer == self.correct_answer:
-            return 1, self.correct_answer
-        return 0, self.correct_answer
-
-
-@dataclass
-class FillTextQuestion(QuestionType):
-    correct_answer: str
-
-    def check_answer(self, user_answer: str) -> tuple[int, str]:
-        if user_answer == self.correct_answer:
-            return 1, self.correct_answer
-        return 0, self.correct_answer
-
-
-@dataclass
-class FillWithArticlesQuestion(QuestionType):
     correct_answers: list[str]
+    question: str = field(default_factory=str)
 
-    def check_answer(self, user_answer: str) -> tuple[int, str]:
-        # print(self.correct_answers, user_answer)
+    def check_answers(self, user_answer: str) -> tuple[int, str]:
         if user_answer in self.correct_answers:
             return 1, ",".join(self.correct_answers)
         return 0, ",".join(self.correct_answers)

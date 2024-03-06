@@ -178,8 +178,7 @@ def test_insert_and_get_email_task(db: Database) -> None:
     exam_id = exams_db.get_exam_id("english", 2021, 1)
     task_db = TasksDatabase(db.get_connection(), db.get_cursor())
     task_id = task_db.insert_email_task(
-        7, "title", 7, EMAIL, exam_id, "text_title", "text", ["where?", "when?", "why?"]
-    )
+        7, "title", 7, EMAIL, exam_id)
     task = task_db.get_email_task(task_id)
 
     assert task.task_id == task_id
@@ -189,9 +188,9 @@ def test_insert_and_get_email_task(db: Database) -> None:
     assert task.task_type == EMAIL
     assert task.exam_id == exam_id
     assert task.questions == []
-    assert task.text_title == "text_title"
-    assert task.text == "text"
-    assert task.asking_information == ["where?", "when?", "why?"]
+    # assert task.text_title == "text_title"
+    # assert task.text == "text"
+    # assert task.asking_information == ["where?", "when?", "why?"]
 
     db.close_database()
 
@@ -201,7 +200,7 @@ def test_insert_and_get_essay_task(db: Database) -> None:
     exams_db.create_new_exam("english", 2021, 1)
     exam_id = exams_db.get_exam_id("english", 2021, 1)
     task_db = TasksDatabase(db.get_connection(), db.get_cursor())
-    task_id = task_db.insert_essay_task(8, "title", 8, ESSAY, exam_id, "essay_title")
+    task_id = task_db.insert_essay_task(8, "title", 8, ESSAY, exam_id)
     task = task_db.get_essay_task(task_id)
 
     assert task.task_id == task_id
@@ -242,9 +241,8 @@ def test_get_tasks(db: Database) -> None:
         ["dialog1", "dialog2", "dialog3"],
     )
     task_db.insert_email_task(
-        7, "title", 7, EMAIL, exam_id, "text_title", "text", ["where?", "when?", "why?"]
-    )
-    task_db.insert_essay_task(8, "title", 8, ESSAY, exam_id, "essay_title")
+        7, "title", 7, EMAIL, exam_id)
+    task_db.insert_essay_task(8, "title", 8, ESSAY, exam_id)
     tasks = task_db.get_tasks(exam_id)
 
     assert len(tasks) == 8

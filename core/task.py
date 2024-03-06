@@ -19,7 +19,7 @@ class Task(ABC):
         return self.questions
 
     def get_result_points(
-        self, answers: list[str]
+            self, answers: list[str]
     ) -> tuple[int, list[tuple[int, str]]]:
         points = 0
         result = []
@@ -71,14 +71,12 @@ class ConversationTask(Task):
 
 @dataclass
 class EmailTask(Task):
-    text_title: str
-    text: str
-    asking_information: list[str]
+    pass
 
 
 @dataclass
 class EssayTask(Task):
-    essay_title: str
+    pass
 
 
 class TasksRepository(Protocol):
