@@ -11,8 +11,8 @@ class ExamsDatabase:
 
     def create_new_exam(self, subject: str, year: int, variant: int) -> None:
         self.cur.execute(
-            "INSERT INTO Exams(SUBJECT, YEAR, VARIANT) VALUES (?, ?, ?)",
-            (subject, year, variant),
+            "INSERT INTO Exams(YEAR, VARIANT, SUBJECT) VALUES (?, ?, ?)",
+            (year, variant, subject),
         )
         self.con.commit()
 
@@ -23,18 +23,25 @@ class ExamsDatabase:
         ).fetchone()[0]
 
     def get_exam(self, exam_id: int) -> Exam:
-        return self.cur.execute(
+        exam_tuple = self.cur.execute(
             "SELECT * FROM Exams WHERE EXAM_ID = ?", (exam_id,)
         ).fetchone()
+        return Exam(*exam_tuple)
 
     def get_exams(self) -> list[Exam]:
-        return self.cur.execute(
+        exams_tuple = self.cur.execute(
             "SELECT * FROM Exams"
         ).fetchall()
+        exams = []
+        for exam in exams_tuple:
+            exams.append(Exam(*exam))
+        return exams
 
-    def get_exam_by_subject(self, subject: str) -> list[Exam]:
-        return self.cur.execute(
+    def get_exams_by_subject(self, subject: str) -> list[Exam]:
+        exams_tuple = self.cur.execute(
             "SELECT * FROM Exams WHERE SUBJECT = ?", (subject,)
         ).fetchall()
-
-
+        exams = []
+        for exam in exams_tuple:
+            exams.append(Exam(*exam))
+        return exams
