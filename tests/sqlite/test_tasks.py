@@ -15,6 +15,7 @@ from infra.constants import (
 )
 from infra.sqlite.database_connect import Database
 from infra.sqlite.exams import ExamsDatabase
+from infra.sqlite.questions import QuestionsDatabase
 from infra.sqlite.tasks import TasksDatabase
 
 
@@ -31,14 +32,20 @@ def test_insert_and_get_listening_task(db: Database) -> None:
     exam_id = exams_db.get_exam_id("english", 2021, 1)
     task_db = TasksDatabase(db.get_connection(), db.get_cursor())
     task_id = task_db.insert_listening_task(
-        1, "title", 1, LISTENING, exam_id, "address", 5
+        1, "title", 3, LISTENING, exam_id, "address", 5
     )
+
+    questions_db = QuestionsDatabase(db.get_connection(), db.get_cursor())
+    questions_db.insert_multiple_choice_question(task_id, "question1", ["option1", "option2"], "option1")
+    questions_db.insert_multiple_choice_question(task_id, "question2", ["option1", "option2"], "option2")
+    questions_db.insert_multiple_choice_question(task_id, "question3", ["option1", "option2"], "option1")
+
     task = task_db.get_listening_task(task_id)
 
     assert task.task_id == task_id
     assert task.task_number == 1
     assert task.task_title == "title"
-    assert task.task_point == 1
+    assert task.task_point == 3
     assert task.task_type == LISTENING
     assert task.exam_id == exam_id
     assert task.questions == []

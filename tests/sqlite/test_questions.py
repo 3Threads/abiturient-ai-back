@@ -99,3 +99,24 @@ def test_insert_and_get_essay_question(db: Database) -> None:
     assert question.essay_title == "essay_title"
 
     db.close_database()
+
+
+def test_get_questions(db: Database) -> None:
+    exams_db = ExamsDatabase(db.get_connection(), db.get_cursor())
+    exams_db.create_new_exam("english", 2021, 1)
+    exam_id = exams_db.get_exam_id("english", 2021, 1)
+    task_db = TasksDatabase(db.get_connection(), db.get_cursor())
+    task_id = task_db.insert_reading_task(
+        1, "title", 1, READING, exam_id, "text_title", "text"
+    )
+
+    question_db = QuestionsDatabase(db.get_connection(), db.get_cursor())
+    question_db.insert_open_question(task_id, "question1", ["option1", "option2"])
+    question_db.insert_open_question(task_id, "question2", ["option1", "option2"])
+    question_db.insert_open_question(task_id, "question3", ["option1", "option2"])
+
+    questions = question_db.get_questions(task_id)
+
+    assert len(questions) == 3
+
+    db.close_database()
