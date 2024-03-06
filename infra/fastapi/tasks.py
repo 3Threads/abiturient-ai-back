@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi import Form
 from fastapi.responses import JSONResponse
 
-from infra.fastapi.dependables import TasksRepositoryDependable
+from infra.fastapi.dependables import TasksRepositoryDependable, ExamsRepositoryDependable
 
 tasks_api = APIRouter(tags=["Tasks"])
 
@@ -11,8 +11,8 @@ tasks_api = APIRouter(tags=["Tasks"])
     "/tasks/{subject}/{year}/{variant}",
     status_code=200,
 )
-def get_tasks(subject: str, year: int, variant: int, tasks: TasksRepositoryDependable):
-    exam_id = tasks.get_exam_id(subject, year, variant)
+def get_tasks(subject: str, year: int, variant: int, tasks: TasksRepositoryDependable, exams: ExamsRepositoryDependable):
+    exam_id = exams.get_exam_id(subject, year, variant)
     result_tasks = tasks.get_tasks(exam_id)
     if len(result_tasks):
         return {"tasks": result_tasks}

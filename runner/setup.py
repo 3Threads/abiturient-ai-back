@@ -8,6 +8,7 @@ from infra.fastapi.login import sign_api
 from infra.fastapi.subsribes import subscribe_api
 from infra.fastapi.tasks import tasks_api
 from infra.sqlite.database_connect import Database
+from infra.sqlite.exams import ExamsDatabase
 from infra.sqlite.subscribes import SubscribesDataBase
 from infra.sqlite.tasks import TasksDatabase
 from infra.sqlite.users import UsersDatabase
@@ -30,6 +31,7 @@ def init_app() -> FastAPI:
         db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))
         db.initial()  # Uncomment this if you want to create initial db
         db.fill_table()  # Uncomment this if you want to fill the table with initial data
+        app.state.exams = ExamsDatabase(db.con, db.cur)
         app.state.tasks = TasksDatabase(db.con, db.cur)
         app.state.subscribes = SubscribesDataBase(db.con, db.cur)
         app.state.users = UsersDatabase(db.con, db.cur, app.state.subscribes)

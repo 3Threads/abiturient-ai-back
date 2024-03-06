@@ -3,9 +3,17 @@ from typing import Annotated
 from fastapi import Depends
 from fastapi.requests import Request
 
+from core.exam import ExamsRepository
 from core.subscribes import SubscribesRepository
 from core.task import TasksRepository
 from core.users import UsersRepository
+
+
+def get_exams_repository(request: Request) -> ExamsRepository:
+    return request.app.state.exams  # type: ignore
+
+
+ExamsRepositoryDependable = Annotated[ExamsRepository, Depends(get_exams_repository)]
 
 
 def get_tasks_repository(request: Request) -> TasksRepository:
@@ -26,4 +34,6 @@ def get_subscribes_repository(request: Request) -> SubscribesRepository:
     return request.app.state.subscribes  # type: ignore
 
 
-SubscribesRepositoryDependable = Annotated[SubscribesRepository, Depends(get_subscribes_repository)]
+SubscribesRepositoryDependable = Annotated[
+    SubscribesRepository, Depends(get_subscribes_repository)
+]
