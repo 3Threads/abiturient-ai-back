@@ -25,7 +25,7 @@ class MultipleChoiceQuestion(Question):
 @dataclass
 class OpenQuestion(Question):
     correct_answers: list[str]
-    question: str = field(default_factory=str)
+    question_text: str = field(default_factory=str)
 
     def check_answers(self, user_answer: str) -> tuple[int, str]:
         if user_answer in self.correct_answers:

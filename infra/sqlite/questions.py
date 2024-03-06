@@ -1,8 +1,20 @@
 from dataclasses import dataclass
 from sqlite3 import Connection, Cursor
 
-from core.question import MultipleChoiceQuestion, OpenQuestion, EmailQuestion, Question, EssayQuestion
-from infra.constants import MULTIPLE_CHOICE_QUESTION, DELIMITER, OPEN_QUESTION, EMAIL_QUESTION, ESSAY_QUESTION
+from core.question import (
+    MultipleChoiceQuestion,
+    OpenQuestion,
+    EmailQuestion,
+    Question,
+    EssayQuestion,
+)
+from infra.constants import (
+    MULTIPLE_CHOICE_QUESTION,
+    DELIMITER,
+    OPEN_QUESTION,
+    EMAIL_QUESTION,
+    ESSAY_QUESTION,
+)
 
 
 @dataclass
@@ -17,11 +29,15 @@ class QuestionsDatabase:
         return last_row_id
 
     def get_questions(self, task_id: int) -> list[Question]:
-        questions = self.cur.execute("SELECT * FROM Questions WHERE TASK_ID = ?", (task_id,)).fetchall()
+        questions = self.cur.execute(
+            "SELECT * FROM Questions WHERE TASK_ID = ?", (task_id,)
+        ).fetchall()
         questions_list = []
         for question in questions:
             if question[1] == MULTIPLE_CHOICE_QUESTION:
-                multiple_choice_question = self.get_multiple_choice_question(question[0])
+                multiple_choice_question = self.get_multiple_choice_question(
+                    question[0]
+                )
                 questions_list.append(multiple_choice_question)
             elif question[1] == OPEN_QUESTION:
                 open_question = self.get_open_question(question[0])
@@ -34,9 +50,13 @@ class QuestionsDatabase:
                 questions_list.append(essay_question)
         return questions_list
 
-    def insert_multiple_choice_question(self, task_id: int, question_text: str, question_options: list[str],
-                                        question_answer: str
-                                        ) -> int:
+    def insert_multiple_choice_question(
+        self,
+        task_id: int,
+        question_text: str,
+        question_options: list[str],
+        question_answer: str,
+    ) -> int:
         question_id = self.insert_into_questions(task_id)
         options = question_options[0]
         for option in question_options:
@@ -50,19 +70,19 @@ class QuestionsDatabase:
         self.con.commit()
         return question_id
 
-    def get_multiple_choice_question(
-            self, question_id: int
-    ) -> MultipleChoiceQuestion:
+    def get_multiple_choice_question(self, question_id: int) -> MultipleChoiceQuestion:
         multiple_choice_question = self.cur.execute(
             "SELECT * FROM MultipleChoiceQuestion WHERE QUESTION_ID = ?",
             (question_id,),
-        ).fetchall()
+        ).fetchone()
         options = multiple_choice_question[1].split(DELIMITER)
         return MultipleChoiceQuestion(
             options, multiple_choice_question[2], multiple_choice_question[3]
         )
 
-    def insert_open_question(self, task_id: int, question: str, correct_answers: list[str]) -> int:
+    def insert_open_question(
+        self, task_id: int, question: str, correct_answers: list[str]
+    ) -> int:
         question_id = self.insert_into_questions(task_id)
         answers = correct_answers[0]
         for answer in correct_answers:
@@ -80,13 +100,13 @@ class QuestionsDatabase:
         open_question = self.cur.execute(
             "SELECT * FROM OpenQuestion WHERE QUESTION_ID = ?",
             (question_id,),
-        ).fetchall()
+        ).fetchone()
         answers = open_question[1].split(DELIMITER)
-        return OpenQuestion(
-            answers, open_question[2]
-        )
+        return OpenQuestion(answers, open_question[2])
 
-    def insert_email_question(self, task_id: int, text_title: str, text: str, asking_information: list[str]) -> int:
+    def insert_email_question(
+        self, task_id: int, text_title: str, text: str, asking_information: list[str]
+    ) -> int:
         question_id = self.insert_into_questions(task_id)
         asking_info = asking_information[0]
         for info in asking_information:
@@ -104,11 +124,9 @@ class QuestionsDatabase:
         email_question = self.cur.execute(
             "SELECT * FROM EmailQuestion WHERE QUESTION_ID = ?",
             (question_id,),
-        ).fetchall()
+        ).fetchone()
         asking_information = email_question[3].split(DELIMITER)
-        return EmailQuestion(
-            email_question[1], email_question[2], asking_information
-        )
+        return EmailQuestion(email_question[1], email_question[2], asking_information)
 
     def insert_essay_question(self, task_id: int, essay_title: str) -> int:
         question_id = self.insert_into_questions(task_id)
@@ -123,7 +141,5 @@ class QuestionsDatabase:
         essay_question = self.cur.execute(
             "SELECT * FROM EssayQuestion WHERE QUESTION_ID = ?",
             (question_id,),
-        ).fetchall()
-        return EssayQuestion(
-            essay_question[1]
-        )
+        ).fetchone()
+        return EssayQuestion(essay_question[1])
