@@ -21,6 +21,10 @@ CONVERSATION = "conversation"
 EMAIL = "email"
 ESSAY = "essay"
 
+MULTIPLE_CHOICE_QUESTION = "MultipleChoiceQuestion"
+FILL_WITH_ARTICLES_QUESTION = "FillWithArticlesQuestion"
+TITLING_QUESTION = "TitlingQuestion"
+
 DELIMITER = "#"
 
 AI_OUTPUT_EXAMPLE_ESSAY = """Follow this example for the output:

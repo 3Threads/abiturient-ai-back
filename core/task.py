@@ -2,7 +2,7 @@ from abc import ABC
 from dataclasses import dataclass
 from typing import Protocol
 
-from core.question import QuestionType
+from core.question import Question
 
 
 @dataclass
@@ -12,10 +12,10 @@ class Task(ABC):
     task_title: str
     task_point: int
     task_type: str
-    questions: list[QuestionType]
+    questions: list[Question]
     exam_id: int
 
-    def get_questions(self) -> list[QuestionType]:
+    def get_questions(self) -> list[Question]:
         return self.questions
 
     def get_result_points(
