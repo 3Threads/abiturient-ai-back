@@ -2,7 +2,6 @@ import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from openai import OpenAI
 
 from infra.constants import DATABASE_NAME, SQL_FILE
 from infra.fastapi.login import sign_api
@@ -30,6 +29,7 @@ def init_app() -> FastAPI:
     if os.getenv("WALLET_REPOSITORY_KIND", "memory") == "sqlite":
         db = Database(DATABASE_NAME, os.path.abspath(SQL_FILE))
         db.initial()  # Uncomment this if you want to create initial db
+        db.fill_table()  # Uncomment this if you want to fill the table with initial data
         app.state.tasks = TasksDatabase(db.con, db.cur)
         app.state.subscribes = SubscribesDataBase(db.con, db.cur)
         app.state.users = UsersDatabase(db.con, db.cur, app.state.subscribes)

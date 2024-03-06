@@ -12,7 +12,8 @@ tasks_api = APIRouter(tags=["Tasks"])
     status_code=200,
 )
 def get_tasks(subject: str, year: int, variant: int, tasks: TasksRepositoryDependable):
-    result_tasks = tasks.get_tasks(subject, year, variant)
+    exam_id = tasks.get_exam_id(subject, year, variant)
+    result_tasks = tasks.get_tasks(exam_id)
     if len(result_tasks):
         return {"tasks": result_tasks}
     return JSONResponse(status_code=404, content={"message": "Tasks not found, will be available soon."})
