@@ -26,8 +26,8 @@ class QuestionDataBase:
     #         elif question[1] == TITLING_QUESTION:
     #             yield self.get_titling_questions(task_id, question[0])
 
-    def insert_multiple_choice_question(self, question_text: str, question_options: list[str], question_answer: str,
-                                        task_id: int) -> int:
+    def insert_multiple_choice_question(self, task_id: int, question_text: str, question_options: list[str], question_answer: str
+                                        ) -> int:
         question_id = self.insert_into_questions(task_id)
         self.cur.execute(
             "INSERT INTO MultipleChoiceQuestion(QUESTION_ID, QUESTION_TEXT, QUESTION_OPTIONS, QUESTION_ANSWER) VALUES (?, ?, ?, ?)",
@@ -51,3 +51,11 @@ class QuestionDataBase:
 
         return questions
 
+    def insert_open_question(self, task_id: int, question: str, correct_answers: list[str]) -> int:
+        question_id = self.insert_into_questions(task_id)
+        self.cur.execute(
+            "INSERT INTO OpenQuestion(QUESTION_ID, QUESTION, CORRECT_ANSWERS) VALUES (?, ?, ?)",
+            (question_id, question, correct_answers),
+        )
+        self.con.commit()
+        return question_id
