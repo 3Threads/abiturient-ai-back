@@ -9,7 +9,7 @@ from infra.constants import (
     FILLING,
     FILLING_WITHOUT_OPTIONS,
     EMAIL,
-    ESSAY,
+    ESSAY, CONVERSATION, LISTENING,
 )
 from infra.sqlite.exams import ExamsDatabase
 from infra.sqlite.questions import QuestionsDatabase
@@ -322,3 +322,46 @@ class Database:
             6,
             "Some people think that it’s very hard to be a doctor nowadays. Do you agree or disagree with this opinion? State your opinion and support it with reasons and examples.",
         )
+
+        taskDB.insert_conversation_task(7,
+                                        "Complete the conversation. For questions 1-6, mark the correct letter A-H. Two sentences are extra.",
+                                        6, CONVERSATION, exam_id, "Telephone conversation",
+                                        """
+                                        Receptionist: Good morning. Hotel Starline. How can I help you?
+                                        Martha: …… (1)
+                                        "Receptionist: Have you decided when you are arriving and how long you are staying?",
+                                        "Martha: …… (2)
+                                        "Receptionist: Perfect, as we’ll have more rooms available then. Would you like a room with the sea view?",
+                                        "Martha: …… (3)
+                                        "Receptionist: Perfect, as we’ll have more rooms available then. Would you like a room with the sea view?",
+                                        "Martha: …… (4)
+                                        "Receptionist: Certainly. And how will you be paying - in cash or by credit card?",
+                                        "Martha: …… (5)
+                                        "Receptionist: Of course, madam. I’ll email you our bank account number then.",
+                                        "Martha: …… (6)
+                                        "Receptionist: Thank you for calling us.""",
+                                        ["A. You’ve been very helpful, indeed. Thank you.",
+                                         "B. In the second half of September, for three nights, from the 18th to the 21st."
+                                         """C. I’d like to enquire about some details regarding your
+                                         hotel.""",
+                                         """D. We’d prefer to transfer the required sum in advance, if
+                                         that’s possible.""",
+                                         """E. That’s a good price! Can you book that one for me,
+                                         please?""",
+                                         """F. I’d like to book a room for myself and my sister for a
+                                         few days.""",
+                                         """G. Paying by credit card is much safer nowadays than
+                                         carrying a lot of cash with you.""",
+                                         """H. That’ll be fine but it depends on the price, you know."""
+                                         ])
+
+        questionDB.insert_open_question(7, "", ["F"])
+        questionDB.insert_open_question(7, "", ["B"])
+        questionDB.insert_open_question(7, "", ["H"])
+        questionDB.insert_open_question(7, "", ["E"])
+        questionDB.insert_open_question(7, "", ["D"])
+        questionDB.insert_open_question(7, "", ["A"])
+
+        taskDB.insert_listening_task(8, """Listen to the text and for each question mark the correct answer A, B, C or D. You now have 40 seconds
+                                        to look through the task. You will then hear the recording twice.""", 8, LISTENING, exam_id,
+                                     "https://naec.ge/uploads/postData/20-23/%E1%83%94%E1%83%A0%E1%83%97%E1%83%98%E1%83%90%E1%83%9C%E1%83%98%20%E1%83%94%E1%83%A0%E1%83%9D%E1%83%95%E1%83%9C%E1%83%A3%E1%83%9A%E1%83%98%20%E1%83%92%E1%83%90%E1%83%9B%E1%83%9D%E1%83%AA%E1%83%93%E1%83%94%E1%83%91%E1%83%98%20-%20%E1%83%A2%E1%83%94%E1%83%A1%E1%83%A2%E1%83%94%E1%83%91%E1%83%98/%E1%83%A3%E1%83%AA%E1%83%AE%E1%83%9D%E1%83%A3%E1%83%A0%E1%83%98%20%E1%83%94%E1%83%9C%E1%83%94%E1%83%91%E1%83%98/%E1%83%98%E1%83%9C%E1%83%92%E1%83%9A%E1%83%98%E1%83%A1%E1%83%A3%E1%83%A0%E1%83%98/ENG%20ABIT%202023%20V1.mp3", )
